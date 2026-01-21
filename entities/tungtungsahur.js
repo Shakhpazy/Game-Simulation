@@ -8,29 +8,31 @@ class Tungtungsahur extends Entity {
             console.log("Tungtungsahur placed in grid");
         } else {
             console.log("Tungtungsahur not placed in grid");
+            return //needs to be updated, prevent object creations, and should not be added to gameEngine entities
         }
+
+        this.row = row
+        this.col = col
 
         // Combat stats
         this.maxHealth = 100;
         this.health = 100;
         this.cost = 100;
         this.attackTimer = 0;
-        this.attackCooldown = 1.0; //1.0 second
+        this.attackCooldown = 3.5; //1.0 second
         this.damage = 34;
 
         // State
-        this.state = "attacking";
-        this.target = null; // the entity we are attacking
+        this.state = "idle";
     }
 
     update() {
         this.attackTimer += gameEngine.clockTick;
         
-        if (this.state == "idle") {
-            this.findTarget()
-        }
+        this.findTarget()
 
-        if (this.target && this.attackTimer >= this.attackCooldown) {
+        console.log(this.state)
+        if (this.state == "attacking" && this.attackTimer >= this.attackCooldown) {
             this.attack();
         }
 
@@ -56,12 +58,24 @@ class Tungtungsahur extends Entity {
     }
 
     findTarget() {
-        //TODO depending on if we want cross row firing (discuss with team)
+        const enemies = gameEngine.entities.filter(e => e instanceof Zombie);
+        let seen = false
+        for (const enemy of enemies) {
+            console.log(enemy.row, this.row)
+            if (enemy.row === this.row) {   // or: if (enemy.row === this.row)
+                seen = true
+                break;
+            }
+        }
+
+        this.state = seen ? "attacking" : "idle";
     }
 
     attack() {
         this.attackTimer = 0;
-        this.state = "attacking"
+        const proj = new Projectile(this.x + 20, this.y+30, this.damage, 200)
+        gameEngine.addEntity(proj)
+        //make it shoot a penut
     }
 
     takeDamage(amount) {
