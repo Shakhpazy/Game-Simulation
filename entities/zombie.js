@@ -1,33 +1,38 @@
-class Tungtungsahur extends Entity {
+class Zombie extends Entity {
 
-    constructor(x, y, row, col) {
+    constructor(x, y, row) {
         super(x, y, 80, 80); //80 x 80 pixles is the size of the tungtungsahur (entites should all have same size)
-        
-        // Place onto the grid
-        if (grid.placeEntity(this, row, col)) {
-            console.log("Tungtungsahur placed in grid");
-        } else {
-            console.log("Tungtungsahur not placed in grid");
-        }
+        this.row = row
 
         // Combat stats
         this.maxHealth = 100;
         this.health = 100;
-        this.cost = 100;
         this.attackTimer = 0;
         this.attackCooldown = 1.0; //1.0 second
-        this.damage = 34;
+        this.damage = 20;
+        this.speed = 10;
 
         // State
-        this.state = "attacking";
-        this.target = null; // the entity we are attacking
+        this.state = "walking";
+        this.target = null; // the entity zombie is attacking
+    }
+
+    getrow() {
+        return this.row
+    }
+
+    /**
+     * do some math based on pixle postion
+     */
+    getcol() {
+        
     }
 
     update() {
         this.attackTimer += gameEngine.clockTick;
-        
-        if (this.state == "idle") {
-            this.findTarget()
+
+        if (this.state == "walking") {
+            this.x -= this.speed * gameEngine.clockTick
         }
 
         if (this.target && this.attackTimer >= this.attackCooldown) {
@@ -42,10 +47,8 @@ class Tungtungsahur extends Entity {
 
     draw(ctx) {
         // Draw sprite or placeholder rectangle
-        ctx.fillStyle = "green";
-        ctx.beginPath();
-        ctx.arc(this.x + 40, this.y + 40, this.width/2, 0, 2 * Math.PI);
-        ctx.fill();
+        ctx.fillStyle = "red";
+        ctx.fillRect(this.x, this.y, this.width, this.height);
         
         // Draw health bar
         const healthPercent = this.health / this.maxHealth;
@@ -56,7 +59,6 @@ class Tungtungsahur extends Entity {
     }
 
     findTarget() {
-        //TODO depending on if we want cross row firing (discuss with team)
     }
 
     attack() {
@@ -68,4 +70,7 @@ class Tungtungsahur extends Entity {
         this.health -= amount
         if (this.health <= 0) this.remove()
     }
+
+
+
 }
