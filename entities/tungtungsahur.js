@@ -39,6 +39,7 @@ class Tungtungsahur extends Entity {
             this.state = "dying";
             this.remove()
         }
+
     }
 
     draw(ctx) {
@@ -54,6 +55,8 @@ class Tungtungsahur extends Entity {
         ctx.fillRect(this.x, this.y - 7, this.width, 5);
         ctx.fillStyle = "green";
         ctx.fillRect(this.x, this.y - 7, this.width * healthPercent, 5);
+
+        super.draw(ctx);
     }
 
     findTarget() {

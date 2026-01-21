@@ -32,7 +32,7 @@ class Zombie extends Entity {
         this.attackTimer += gameEngine.clockTick;
 
         if (this.state == "walking") {
-            this.x -= this.speed * gameEngine.clockTick
+            this.x -= this.speed * gameEngine.clockTick;
         }
 
         if (this.target && this.attackTimer >= this.attackCooldown) {
@@ -41,8 +41,11 @@ class Zombie extends Entity {
 
         if (this.health <= 0) {
             this.state = "dying";
-            this.remove()
+            this.remove();
         }
+
+        super.updateBB()
+        //check for collisions
     }
 
     draw(ctx) {
@@ -56,6 +59,8 @@ class Zombie extends Entity {
         ctx.fillRect(this.x, this.y - 7, this.width, 5);
         ctx.fillStyle = "green";
         ctx.fillRect(this.x, this.y - 7, this.width * healthPercent, 5);
+
+        super.draw(ctx);
     }
 
     findTarget() {
