@@ -5,12 +5,34 @@ const HEIGHT = 100; // height of each cell
 
 class Grid {
 
-    constructor() {
+    constructor(game) {
         this.grid = new Array(ROWS).fill().map(() => Array(COLS).fill(null))
+        this.game = game
         console.log(this.grid);
     }
 
+    pixelToCell(x, y) {
+        const row = Math.trunc(y / HEIGHT);
+        const col = Math.trunc(x / WIDTH);
+    
+        if (row < 0 || row >= ROWS || col < 0 || col >= COLS) return null;
+        return [row, col];
+    }
+    
+    getCellHover() {
+        if (!this.game.mouse) return null;
+        return this.pixelToCell(this.game.mouse.x, this.game.mouse.y);
+    }
+    
+    getCellClicked() {
+        if (!this.game.click) return null;
+        return this.pixelToCell(this.game.click.x, this.game.click.y);
+    }
+
     draw(ctx) {
+        const mouseOver = this.getCellHover()
+        const mouseClicked = this.getCellClicked()
+
         ctx.strokeStyle = "black";
         ctx.lineWidth = 1;
         
@@ -28,6 +50,30 @@ class Grid {
             ctx.moveTo(col * WIDTH, 0);
             ctx.lineTo(col * WIDTH, ROWS * HEIGHT);
             ctx.stroke();
+        }
+        
+        if (mouseClicked) {
+            console.log(mouseClicked)
+            const [row, col] = mouseOver;
+            if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
+                ctx.save();
+                ctx.fillStyle = "yellow";
+                ctx.globalAlpha = 1;
+                ctx.fillRect(col * WIDTH, row * HEIGHT, WIDTH, HEIGHT);
+                ctx.restore();
+            }
+            this.game.click = null
+        }
+
+        if (mouseOver) {
+            const [row, col] = mouseOver;
+            if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
+                ctx.save();
+                ctx.fillStyle = "purple";
+                ctx.globalAlpha = 0.3;
+                ctx.fillRect(col * WIDTH, row * HEIGHT, WIDTH, HEIGHT);
+                ctx.restore();
+            }
         }
     }
 
@@ -47,6 +93,7 @@ class Grid {
         this.grid[row][col] = entity;
         return true;
     }
+
 
 
 

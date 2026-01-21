@@ -31,7 +31,6 @@ class Tungtungsahur extends Entity {
         
         this.findTarget()
 
-        console.log(this.state)
         if (this.state == "attacking" && this.attackTimer >= this.attackCooldown) {
             this.attack();
         }
@@ -61,7 +60,6 @@ class Tungtungsahur extends Entity {
         const enemies = gameEngine.entities.filter(e => e instanceof Zombie);
         let seen = false
         for (const enemy of enemies) {
-            console.log(enemy.row, this.row)
             if (enemy.row === this.row) {   // or: if (enemy.row === this.row)
                 seen = true
                 break;
