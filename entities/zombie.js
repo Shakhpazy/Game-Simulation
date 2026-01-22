@@ -1,20 +1,23 @@
 class Zombie extends Entity {
 
-    constructor(x, y, row) {
+    constructor(x, y, row, gameEngine) {
         super(x, y, 80, 80); //80 x 80 pixles is the size of the tungtungsahur (entites should all have same size)
+        this.gameEngine = gameEngine
+
         this.row = row
 
         // Combat stats
-        this.maxHealth = 100;
-        this.health = 100;
+        this.maxHealth = 200;
+        this.health = 200;
         this.attackTimer = 0;
-        this.attackCooldown = 1.0; //1.0 second
+        this.attackCooldown = 1; //1.0 second
         this.damage = 20;
-        this.speed = 10;
+        this.speed = 50;
 
         // State
         this.state = "walking";
-        this.target = null; // the entity zombie is attacking
+
+        this.isally = false
     }
 
     getrow() {
@@ -29,14 +32,10 @@ class Zombie extends Entity {
     }
 
     update() {
-        this.attackTimer += gameEngine.clockTick;
+        this.attackTimer += this.gameEngine.clockTick;
 
-        if (this.state == "walking") {
-            this.x -= this.speed * gameEngine.clockTick;
-        }
-
-        if (this.target && this.attackTimer >= this.attackCooldown) {
-            this.attack();
+        if (this.state === "walking") {
+            this.x -= this.speed * this.gameEngine.clockTick;
         }
 
         if (this.health <= 0) {
@@ -45,7 +44,18 @@ class Zombie extends Entity {
         }
 
         super.updateBB()
-        //check for collisions
+
+        let attacking = false;
+        this.gameEngine.entities.forEach(entity => {
+            if (!(entity instanceof Projectile) && entity.isally !== this.isally && this.hitbox.collide(entity.hitbox)) {
+                // Collision detected with an enemy entity
+                attacking = true;
+                if (this.attackTimer >= this.attackCooldown) {
+                    this.attack(entity);
+                }
+            }
+        })
+        this.state = attacking ? "attacking" : "walking";
     }
 
     draw(ctx) {
@@ -66,9 +76,9 @@ class Zombie extends Entity {
     findTarget() {
     }
 
-    attack() {
+    attack(entity) {
+        entity.takeDamage(this.damage)
         this.attackTimer = 0;
-        this.state = "attacking"
     }
 
     takeDamage(amount) {

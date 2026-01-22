@@ -1,8 +1,8 @@
 class Tungtungsahur extends Entity {
 
-    constructor(x, y, row, col) {
+    constructor(x, y, row, col, gameEngine) {
         super(x, y, 80, 80); //80 x 80 pixles is the size of the tungtungsahur (entites should all have same size)
-        
+        this.gameEngine = gameEngine
         // Place onto the grid
         if (grid.placeEntity(this, row, col)) {
             console.log("Tungtungsahur placed in grid");
@@ -24,10 +24,13 @@ class Tungtungsahur extends Entity {
 
         // State
         this.state = "idle";
+
+        //ally entity
+        this.isally = true
     }
 
     update() {
-        this.attackTimer += gameEngine.clockTick;
+        this.attackTimer += this.gameEngine.clockTick;
         
         this.findTarget()
 
@@ -60,7 +63,7 @@ class Tungtungsahur extends Entity {
     }
 
     findTarget() {
-        const enemies = gameEngine.entities.filter(e => e instanceof Zombie);
+        const enemies = this.gameEngine.entities.filter(e => e instanceof Zombie);
         let seen = false
         for (const enemy of enemies) {
             if (enemy.row === this.row) {   // or: if (enemy.row === this.row)
@@ -74,8 +77,8 @@ class Tungtungsahur extends Entity {
 
     attack() {
         this.attackTimer = 0;
-        const proj = new Projectile(this.x + 20, this.y+30, this.damage, 200)
-        gameEngine.addEntity(proj)
+        const proj = new Projectile(this.x + 20, this.y+30, this.damage, 200, this.isally, this.gameEngine)
+        this.gameEngine.addEntity(proj)
         //make it shoot a penut
     }
 
