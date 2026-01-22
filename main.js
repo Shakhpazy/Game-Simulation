@@ -8,12 +8,22 @@ ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");
 
-	const t = new Tungtungsahur(10, 10, 0, 0, gameEngine)
+	const t = new Ally1(10, 10, 0, 0, gameEngine)
 	const z = new Zombie(900, 12, 0, gameEngine)
 	gameEngine.init(ctx);
 
 	gameEngine.addEntity(t)
 	gameEngine.addEntity(z)
+
+	const archerButton = new Button(gameEngine, "Ally1", (button) => {
+    // This is the custom logic that runs when the button is clicked
+	console.log("Archer button clicked");
+    gameEngine.selectedTowerType = button.selected ? null : 'Ally1'; 
+	});
+
+	gameEngine.addEntity(archerButton);
+
+
 
 	gameEngine.start();
 });

@@ -29,6 +29,24 @@ class Grid {
         return this.pixelToCell(this.game.click.x, this.game.click.y);
     }
 
+    /**
+     * Places an entity in the grid at the given row and column.
+     * 
+     * @param {*} entity the different allies that can be placed in the grid
+     * @param {*} row 
+     * @param {*} col 
+     * @returns {boolean} true if the entity was placed, false if the cell is already occupied
+     */
+    placeEntity(entity, row, col) {
+        if (this.grid[row][col] !== null) {
+            console.log("Cell is already occupied");
+            return false;
+        }
+        this.grid[row][col] = entity;
+        this.game.addEntity(entity)
+        return true;
+    }
+
     draw(ctx) {
         const mouseOver = this.getCellHover()
         const mouseClicked = this.getCellClicked()
@@ -54,13 +72,12 @@ class Grid {
         
         if (mouseClicked) {
             console.log(mouseClicked)
-            const [row, col] = mouseOver;
+            const [row, col] = mouseClicked;
             if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
-                ctx.save();
-                ctx.fillStyle = "yellow";
-                ctx.globalAlpha = 1;
-                ctx.fillRect(col * WIDTH, row * HEIGHT, WIDTH, HEIGHT);
-                ctx.restore();
+                if (this.game.selectedTowerType === 'Ally1') {
+                    const ally = new Ally1(col * 100 + 10, row * 100 + 10, row, col, this.game);
+                    this.placeEntity(ally, row, col);
+                }
             }
             this.game.click = null
         }
@@ -77,22 +94,6 @@ class Grid {
         }
     }
 
-    /**
-     * Places an entity in the grid at the given row and column.
-     * 
-     * @param {*} entity the different allies that can be placed in the grid
-     * @param {*} row 
-     * @param {*} col 
-     * @returns {boolean} true if the entity was placed, false if the cell is already occupied
-     */
-    placeEntity(entity, row, col) {
-        if (this.grid[row][col] !== null) {
-            console.log("Cell is already occupied");
-            return false;
-        }
-        this.grid[row][col] = entity;
-        return true;
-    }
 
 
 

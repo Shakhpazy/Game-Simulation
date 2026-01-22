@@ -15,6 +15,9 @@ class GameEngine {
         this.wheel = null;
         this.keys = {};
 
+        // Selected ally type
+        this.selectedTowerType = null;
+
         // Options and the Details
         this.options = options || {
             debugging: false,

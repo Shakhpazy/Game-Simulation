@@ -7,8 +7,8 @@ class Zombie extends Entity {
         this.row = row
 
         // Combat stats
-        this.maxHealth = 200;
-        this.health = 200;
+        this.maxHealth = 120;
+        this.health = 120;
         this.attackTimer = 0;
         this.attackCooldown = 1; //1.0 second
         this.damage = 20;
@@ -47,7 +47,7 @@ class Zombie extends Entity {
 
         let attacking = false;
         this.gameEngine.entities.forEach(entity => {
-            if (!(entity instanceof Projectile) && entity.isally !== this.isally && this.hitbox.collide(entity.hitbox)) {
+            if ((entity instanceof Ally1) && entity.isally !== this.isally && this.hitbox.collide(entity.hitbox)) {
                 // Collision detected with an enemy entity
                 attacking = true;
                 if (this.attackTimer >= this.attackCooldown) {

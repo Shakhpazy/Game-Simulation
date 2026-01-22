@@ -1,4 +1,4 @@
-class Tungtungsahur extends Entity {
+class Ally1 extends Entity {
 
     constructor(x, y, row, col, gameEngine) {
         super(x, y, 80, 80); //80 x 80 pixles is the size of the tungtungsahur (entites should all have same size)
@@ -19,7 +19,7 @@ class Tungtungsahur extends Entity {
         this.health = 100;
         this.cost = 100;
         this.attackTimer = 0;
-        this.attackCooldown = 3.5; //1.0 second
+        this.attackCooldown = 1; //1.0 second
         this.damage = 34;
 
         // State
