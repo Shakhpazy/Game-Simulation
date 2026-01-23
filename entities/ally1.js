@@ -1,18 +1,9 @@
 class Ally1 extends Entity {
 
-    constructor(x, y, row, col, gameEngine) {
+    constructor(x, y, gameEngine) {
         super(x, y, 80, 80); //80 x 80 pixles is the size of the tungtungsahur (entites should all have same size)
         this.gameEngine = gameEngine
-        // Place onto the grid
-        if (grid.placeEntity(this, row, col)) {
-            console.log("Tungtungsahur placed in grid");
-        } else {
-            console.log("Tungtungsahur not placed in grid");
-            return //needs to be updated, prevent object creations, and should not be added to gameEngine entities
-        }
-
-        this.row = row
-        this.col = col
+        this.row = Math.trunc(y / 100);
 
         // Combat stats
         this.maxHealth = 100;
@@ -26,7 +17,7 @@ class Ally1 extends Entity {
         this.state = "idle";
 
         //ally entity
-        this.isally = true
+        this.isAlly = true
     }
 
     update() {
@@ -64,20 +55,13 @@ class Ally1 extends Entity {
 
     findTarget() {
         const enemies = this.gameEngine.entities.filter(e => e instanceof Zombie);
-        let seen = false
-        for (const enemy of enemies) {
-            if (enemy.row === this.row) {   // or: if (enemy.row === this.row)
-                seen = true
-                break;
-            }
-        }
-
-        this.state = seen ? "attacking" : "idle";
+        const hasTarget = enemies.some(e => e.row === this.row);
+        this.state = hasTarget ? "attacking" : "idle";
     }
 
     attack() {
         this.attackTimer = 0;
-        const proj = new Projectile(this.x + 20, this.y+30, this.damage, 200, this.isally, this.gameEngine)
+        const proj = new Projectile(this.x + 20, this.y+30, this.damage, 200, this.isAlly, this.gameEngine)
         this.gameEngine.addEntity(proj)
         //make it shoot a penut
     }

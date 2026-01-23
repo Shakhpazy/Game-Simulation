@@ -5,7 +5,7 @@ class Entity {
         this.removeFromWorld = false;
         //just making hitboxes 5px smaller for testing
         this.hitbox = new BoundingBox(this.x, this.y, this.width, this.height)
-        this.debughitbox = true
+        this.debugHitbox = true
     }
 
     updateBB() {
@@ -16,7 +16,7 @@ class Entity {
     }
 
     draw(ctx) {
-        if (this.hitbox && this.debughitbox) {
+        if (this.hitbox && this.debugHitbox) {
             ctx.strokeStyle = "yellow";
             ctx.lineWidth = 2;
             ctx.strokeRect(this.hitbox.left, this.hitbox.top, this.hitbox.width, this.hitbox.height);

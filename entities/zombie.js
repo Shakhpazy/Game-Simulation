@@ -17,17 +17,17 @@ class Zombie extends Entity {
         // State
         this.state = "walking";
 
-        this.isally = false
+        this.isAlly = false
     }
 
-    getrow() {
+    getRow() {
         return this.row
     }
 
     /**
      * do some math based on pixle postion
      */
-    getcol() {
+    getCol() {
         
     }
 
@@ -47,7 +47,7 @@ class Zombie extends Entity {
 
         let attacking = false;
         this.gameEngine.entities.forEach(entity => {
-            if ((entity instanceof Ally1) && entity.isally !== this.isally && this.hitbox.collide(entity.hitbox)) {
+            if ((entity instanceof Ally1) && entity.isAlly !== this.isAlly && this.hitbox.collide(entity.hitbox)) {
                 // Collision detected with an enemy entity
                 attacking = true;
                 if (this.attackTimer >= this.attackCooldown) {
