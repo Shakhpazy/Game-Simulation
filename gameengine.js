@@ -18,6 +18,8 @@ class GameEngine {
         // game
         this.towerManager = new TowerManager(this);
         this.grid = new Grid(this);
+        this.waveManager = new WaveManager(this);
+        this.entities.push(this.waveManager);
 
         // Options and the Details
         this.options = options || {

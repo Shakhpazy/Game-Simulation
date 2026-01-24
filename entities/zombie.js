@@ -1,7 +1,9 @@
 class Zombie extends Entity {
 
-    constructor(x, y, row, gameEngine) {
-        super(x, y, 80, 80); //80 x 80 pixles is the size of the tungtungsahur (entites should all have same size)
+    constructor(row, gameEngine) {
+        const x = 800; // Starting x position (right side)
+        const y = row * 100 + 12; // Calculate y from row
+        super(x, y, 80, 80);
         this.gameEngine = gameEngine
 
         this.row = row
@@ -16,8 +18,14 @@ class Zombie extends Entity {
 
         // State
         this.state = "walking";
-
         this.isAlly = false
+
+        // for call back function
+        this._onDeathCallback = null;
+    }
+
+    initialize(onDeathCallback) {
+        this._onDeathCallback = onDeathCallback;
     }
 
     getRow() {
@@ -38,10 +46,7 @@ class Zombie extends Entity {
             this.x -= this.speed * this.gameEngine.clockTick;
         }
 
-        if (this.health <= 0) {
-            this.state = "dying";
-            this.remove();
-        }
+        if (this.health <= 0) return;
 
         super.updateBB()
 
@@ -83,7 +88,10 @@ class Zombie extends Entity {
 
     takeDamage(amount) {
         this.health -= amount
-        if (this.health <= 0) this.remove()
+        if (this.health <= 0) {
+            this._onDeathCallback?.(this);
+            this.remove();
+        }
     }
 
 
