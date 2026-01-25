@@ -7,8 +7,12 @@ class WaveManager {
         this.currentround = 0;
         this.minZombiesPerRound = 3;
         this.zombiesPerRound = Math.ceil(this.currentround * this.minZombiesPerRound);
-        this.spawnRow = 2; // this needs to change later to make zombies spawn from 0-4 rows
+        this.spawnRow = 2;
         this.activeZombies = new Set();
+        this.roundStarted = false;
+
+        //to start the round
+        this.spawnZombies();
     }
 
     /**
@@ -24,16 +28,16 @@ class WaveManager {
                 this.activeZombies.add(zombie);
                 this.gameEngine.addEntity(zombie);
                 console.log(`Spawned zombie ${i + 1}. Count: ${this.activeZombies.size}`);
-            }, i * 3000); // Spawn each zombie 1 second apart
+            }, i * 3000);
         }
+        this.roundStarted = true;
     }
 
     update() {
-        console.log("testing");
-        if (this.activeZombies.size === 0) {
-            console.log("checking");
+        if (this.activeZombies.size === 0 && this.roundStarted) {
             this.currentround += 1;
             this.zombiesPerRound = Math.ceil(this.currentround * this.minZombiesPerRound);
+            this.roundStarted = false;
             this.spawnZombies();
         }
     }
