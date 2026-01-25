@@ -14,14 +14,14 @@ ASSET_MANAGER.downloadAll(() => {
 	gameEngine.addEntity(z)
 	gameEngine
 
-	const archerButton = new Button(gameEngine, "Ally1", (button) => {
+	const allyone = new Button(gameEngine, "Ally1", (button) => {
 		// This is the custom logic that runs when the button is clicked
 		console.log("Archer button clicked");
 		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Ally1'; 
 		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
 	});
 
-	gameEngine.addEntity(archerButton);
+	gameEngine.addEntity(allyone);
 
 
 

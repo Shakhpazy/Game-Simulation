@@ -4,10 +4,10 @@ class WaveManager {
         this.gameEngine = gameEngine
 
         this.debug = true;
-        this.currentround = 1;
+        this.currentround = 0;
         this.minZombiesPerRound = 3;
-        this.zombiesPerRound = Math.ceil(this.currentround * this.minZombiesPerRound)
-        this.spawnRow = 2 // this needs to change later to make zombies spawn from 0-4 rows
+        this.zombiesPerRound = Math.ceil(this.currentround * this.minZombiesPerRound);
+        this.spawnRow = 2; // this needs to change later to make zombies spawn from 0-4 rows
         this.activeZombies = new Set();
     }
 
@@ -29,8 +29,12 @@ class WaveManager {
     }
 
     update() {
+        console.log("testing");
         if (this.activeZombies.size === 0) {
-            this.spawnZombies()
+            console.log("checking");
+            this.currentround += 1;
+            this.zombiesPerRound = Math.ceil(this.currentround * this.minZombiesPerRound);
+            this.spawnZombies();
         }
     }
 
@@ -43,8 +47,9 @@ class WaveManager {
         const bottomRightX = ctx.canvas.width - padding;
         const bottomRightY = ctx.canvas.height - padding;
         
-        ctx.fillText(`Round: ${this.currentround}`, bottomRightX, bottomRightY - 20);
-        ctx.fillText(`Zombies: ${this.activeZombies.size}`, bottomRightX, bottomRightY);
+        ctx.fillText(`Round: ${this.currentround}`, bottomRightX, bottomRightY - 60);
+        ctx.fillText(`Zombies: ${this.activeZombies.size}/${this.zombiesPerRound}`, bottomRightX, bottomRightY - 40);
+        ctx.fillText(`Zombies Per Round: ${this.zombiesPerRound}`, bottomRightX, bottomRightY - 20);
     }
 
 }

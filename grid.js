@@ -55,10 +55,7 @@ class Grid {
         if (mouseClicked) {
             const [row, col] = mouseClicked;
             if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
-                if (this.gameEngine.towerManager.selectedTowerType === 'Ally1') {
-                    //println("Placing Ally1 at ", row, col)
-                    this.gameEngine.towerManager.placeTower(row, col);
-                }
+                this.gameEngine.towerManager.placeTower(row, col);
             }
             this.gameEngine.click = null
         }
