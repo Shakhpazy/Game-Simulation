@@ -22,6 +22,11 @@ class Zombie extends Entity {
 
         // for call back function
         this._onDeathCallback = null;
+
+        //draw entity
+        this.walking = new Animator(ASSET_MANAGER.getAsset('./Sprites/ZombieWalking.png'), 0, 0, 50, 56, 7, 0.15, true);
+        this.eatingHealthy = new Animator(ASSET_MANAGER.getAsset('./Sprites/ZombieEatHealthy.png'), 0, -2, 45, 56, 7, 0.2, true);
+        this.animator = this.walking;
     }
 
     initialize(onDeathCallback) {
@@ -61,13 +66,26 @@ class Zombie extends Entity {
             }
         })
         this.state = attacking ? "attacking" : "walking";
+        
+        if(this.state === "attacking") {
+            this.speed = 0;
+            this.animator = this.eatingHealthy;
+        }
+        else{
+            this.speed = 50;
+            this.animator = this.walking
+        }
     }
 
     draw(ctx) {
-        // Draw sprite or placeholder rectangle
-        ctx.fillStyle = "red";
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        // Draw sprite
+        ctx.save();
+        ctx.translate(this.x + this.animator.width, this.y);
+        this.animator.drawFrame(this.gameEngine.clockTick, ctx, -60, 0);
+        ctx.restore()
         
+            
+
         // Draw health bar
         const healthPercent = this.health / this.maxHealth;
         ctx.fillStyle = "red";
