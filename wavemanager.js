@@ -4,12 +4,15 @@ class WaveManager {
         this.gameEngine = gameEngine
 
         this.debug = true;
-        this.currentround = 0;
+        this.currentround = 1; // Changed from 0
         this.minZombiesPerRound = 3;
         this.zombiesPerRound = Math.ceil(this.currentround * this.minZombiesPerRound);
-        this.spawnRow = 2;
+        this.activeRows = [2];
         this.activeZombies = new Set();
         this.roundStarted = false;
+
+        this.openedrows1 = false;
+        this.openedrows2 = false;
 
         //to start the round
         this.spawnZombies();
@@ -23,7 +26,9 @@ class WaveManager {
     spawnZombies() {
         for (let i = 0; i < this.zombiesPerRound; i++) {
             setTimeout(() => {
-                const zombie = new Zombie(this.spawnRow, this.gameEngine);
+                const spawnRow = this.activeRows[Math.floor(Math.random() * this.activeRows.length)]
+                console.log(spawnRow, this.activeRows, this.currentround)
+                const zombie = new Zombie(spawnRow, this.gameEngine);
                 zombie.initialize((z) => this.activeZombies.delete(z));
                 this.activeZombies.add(zombie);
                 this.gameEngine.addEntity(zombie);
@@ -39,6 +44,17 @@ class WaveManager {
             this.zombiesPerRound = Math.ceil(this.currentround * this.minZombiesPerRound);
             this.roundStarted = false;
             this.spawnZombies();
+        }
+        if (this.currentround === 2 && !this.openedrows1) {
+            this.activeRows.push(1,3);
+            this.gameEngine.grid.activeRows = this.activeRows
+            this.openedrows1 = true;
+        }
+        if (this.currentround === 4 && !this.openedrows2) {
+            this.activeRows.push(0,4);
+            this.gameEngine.grid.activeRows = this.activeRows
+            this.openedrows2 = true;
+
         }
     }
 

@@ -6,8 +6,9 @@ const HEIGHT = 100; // height of each cell
 class Grid {
 
     constructor(gameEngine) {
-        this.grid = new Array(ROWS).fill().map(() => Array(COLS).fill(null))
-        this.gameEngine = gameEngine
+        this.grid = new Array(ROWS).fill().map(() => Array(COLS).fill(null));
+        this.gameEngine = gameEngine;
+        this.activeRows = [2];
         console.log(this.grid);
     }
 
