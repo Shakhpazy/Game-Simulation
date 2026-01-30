@@ -3,7 +3,7 @@ const gameEngine = new GameEngine();
 const ASSET_MANAGER = new AssetManager();
 
 const grid = new Grid();
-
+ASSET_MANAGER.queueDownload("./sprites/zombie.gif");
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");
