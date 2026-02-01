@@ -18,6 +18,11 @@ class Ally1 extends Entity {
 
         //ally entity
         this.isAlly = true
+
+        this.idle = new Animator(ASSET_MANAGER.getAsset('./Sprites/IchigoIdle.png'), 113, 0, 113, 100, 3, 0.2, true);
+        this.slash = new Animator(ASSET_MANAGER.getAsset('./Sprites/IchigoAttack.jpg'), 0, 0, 100, 100, 4, 0.09, false);
+        this.animator = this.idle;
+        
     }
 
     update() {
@@ -25,24 +30,35 @@ class Ally1 extends Entity {
         
         this.findTarget()
 
-        if (this.state == "attacking" && this.attackTimer >= this.attackCooldown) {
-            this.attack();
+        if (this.state === "attacking") {
+            if (!this.isAttacking && this.attackTimer >= this.attackCooldown) {
+                this.attack();
+                this.isAttacking = true;
+                this.animator = this.slash;
+                this.animator.reset() // restart animation
+            }
+
+            // when animation finishes → go back to idle
+            if (this.animator.isDone()) {
+                this.isAttacking = false;
+                this.animator = this.idle;
+            }
+        } 
+        else {
+            this.animator = this.idle;
+            this.isAttacking = false;
         }
 
         if (this.health <= 0) {
             this.state = "dying";
-            this.remove()
+            this.remove();
         }
-
     }
 
     draw(ctx) {
-        // Draw sprite or placeholder rectangle
-        ctx.fillStyle = "green";
-        ctx.beginPath();
-        ctx.arc(this.x + 40, this.y + 40, this.width/2, 0, 2 * Math.PI);
-        ctx.fill();
-        
+        //Had to hard code the coordinates of Ichigo
+        this.animator.drawFrame(this.gameEngine.clockTick, ctx, this.x - 25, this.y - 10);
+
         // Draw health bar
         const healthPercent = this.health / this.maxHealth;
         ctx.fillStyle = "red";
@@ -61,7 +77,7 @@ class Ally1 extends Entity {
 
     attack() {
         this.attackTimer = 0;
-        const proj = new Projectile(this.x + 20, this.y+30, this.damage, 200, this.isAlly, this.gameEngine)
+        const proj = new Projectile(this.x + 30, this.y+30, this.damage, 200, this.isAlly, this.gameEngine, new Animator(ASSET_MANAGER.getAsset('./Sprites/IchigoSlash.png'), 0, 0, 53, 37, 1, 0.1, true));
         this.gameEngine.addEntity(proj)
         //make it shoot a penut
     }

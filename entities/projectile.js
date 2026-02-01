@@ -1,12 +1,13 @@
-const SIZE = 20;
+const SIZE = 30;
 class Projectile extends Entity {
 
-    constructor(x, y, damage, speed, isally, gameEngine) {
+    constructor(x, y, damage, speed, isally, gameEngine, animator) {
         super(x,y, SIZE, SIZE);
         this.gameEngine = gameEngine
         this.damage = damage
         this.speed = speed
         this.isally = isally
+        this.animator = animator;
     }
 
     update() {
@@ -26,11 +27,7 @@ class Projectile extends Entity {
 
 
     draw(ctx) {
-        ctx.fillStyle = "orange";
-        ctx.beginPath();
-        ctx.arc(this.x + this.width/2, this.y + this.height/2, this.width/2, 0, Math.PI * 2);
-        ctx.fill();
-
+        this.animator.drawFrame(this.gameEngine.clockTick, ctx, this.x, this.y);
         super.draw(ctx)
 
     }
