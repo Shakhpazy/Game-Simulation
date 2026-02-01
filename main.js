@@ -13,14 +13,7 @@ ASSET_MANAGER.queueDownload('./Sprites/IchigoSlash.png');
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");
-
-	const t = new Ally1(10, 10, gameEngine)
-	const z = new Zombie(0, gameEngine)
 	gameEngine.init(ctx);
-
-	gameEngine.addEntity(t)
-	gameEngine.addEntity(z)
-	gameEngine
 
 	const allyone = new Button(gameEngine, "Ally1", (button) => {
 		// This is the custom logic that runs when the button is clicked

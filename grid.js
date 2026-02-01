@@ -9,7 +9,13 @@ class Grid {
         this.grid = new Array(ROWS).fill().map(() => Array(COLS).fill(null));
         this.gameEngine = gameEngine;
         this.activeRows = [2];
-        console.log(this.grid);
+        this.initializeGrid();
+    }
+
+    initializeGrid() {
+        const tower = new Tower(0, 0, this.gameEngine);
+        this.grid[0][0] = tower;
+        this.gameEngine.addEntity(tower);
     }
 
     pixelToCell(x, y) {

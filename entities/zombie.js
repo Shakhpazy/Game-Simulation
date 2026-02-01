@@ -45,6 +45,11 @@ class Zombie extends Entity {
     }
 
     update() {
+        if (this.health <= 0) {
+            this._onDeathCallback?.(this);
+            this.remove();
+        }
+
         this.attackTimer += this.gameEngine.clockTick;
 
         if (this.state === "walking") {
@@ -64,6 +69,13 @@ class Zombie extends Entity {
                     this.attack(entity);
                 }
             }
+            if ((entity instanceof Tower) && entity.isAlly !== this.isAlly && this.hitbox.collide(entity.hitbox)) {
+                // Collision detected with an enemy entity
+                attacking = true;
+                if (this.attackTimer >= this.attackCooldown) {
+                    this.attack(entity);
+                }
+            }
         })
         this.state = attacking ? "attacking" : "walking";
         
@@ -75,6 +87,7 @@ class Zombie extends Entity {
             this.speed = 50;
             this.animator = this.walking
         }
+
     }
 
     draw(ctx) {
@@ -100,17 +113,10 @@ class Zombie extends Entity {
     }
 
     attack(entity) {
-        entity.takeDamage(this.damage)
+        entity.health -= this.damage;
         this.attackTimer = 0;
     }
 
-    takeDamage(amount) {
-        this.health -= amount
-        if (this.health <= 0) {
-            this._onDeathCallback?.(this);
-            this.remove();
-        }
-    }
 
 
 

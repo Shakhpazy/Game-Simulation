@@ -19,7 +19,7 @@ class Projectile extends Entity {
         this.gameEngine.entities.forEach(entity => {
             if (entity instanceof Zombie && entity.isally !== this.isally && this.hitbox.collide(entity.hitbox)) {
                 // Collision detected with an enemy entity
-                entity.takeDamage(this.damage)
+                entity.health -= this.damage;
                 this.remove(); // Remove the projectile after hitting
             }
         })
