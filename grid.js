@@ -1,4 +1,4 @@
-const COLS = 9; // number of columns in the grid
+const COLS = 10; // number of columns in the grid
 const ROWS = 5; // number of rows in the grid
 const WIDTH = 100; // width of each cell
 const HEIGHT = 100; // height of each cell

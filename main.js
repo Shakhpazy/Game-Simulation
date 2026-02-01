@@ -4,6 +4,11 @@ const ASSET_MANAGER = new AssetManager();
 
 ASSET_MANAGER.queueDownload('./Sprites/ZombieWalking.png');
 ASSET_MANAGER.queueDownload('./Sprites/ZombieEatHealthy.png');
+ASSET_MANAGER.queueDownload('./Sprites/Shuriken.png');
+ASSET_MANAGER.queueDownload('./Sprites/IchigoIdle.png');
+ASSET_MANAGER.queueDownload('./Sprites/IchigoAttack.jpg');
+ASSET_MANAGER.queueDownload('./Sprites/IchigoSlash.png');
+
 
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
