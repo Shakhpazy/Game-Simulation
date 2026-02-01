@@ -15,6 +15,12 @@ class GameEngine {
         this.wheel = null;
         this.keys = {};
 
+        // game
+        this.towerManager = new TowerManager(this);
+        this.grid = new Grid(this);
+        this.waveManager = new WaveManager(this);
+        this.entities.push(this.waveManager);
+
         // Options and the Details
         this.options = options || {
             debugging: false,
@@ -85,7 +91,7 @@ class GameEngine {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
         // Draw the grid
-        grid.draw(this.ctx);
+        this.grid.draw(this.ctx);
         // Draw latest things first
         for (let i = this.entities.length - 1; i >= 0; i--) {
             this.entities[i].draw(this.ctx, this);
