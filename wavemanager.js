@@ -27,12 +27,10 @@ class WaveManager {
         for (let i = 0; i < this.zombiesPerRound; i++) {
             setTimeout(() => {
                 const spawnRow = this.activeRows[Math.floor(Math.random() * this.activeRows.length)]
-                console.log(spawnRow, this.activeRows, this.currentround)
                 const zombie = new Zombie(spawnRow, this.gameEngine);
                 zombie.initialize((z) => this.activeZombies.delete(z));
                 this.activeZombies.add(zombie);
                 this.gameEngine.addEntity(zombie);
-                console.log(`Spawned zombie ${i + 1}. Count: ${this.activeZombies.size}`);
             }, i * 3000);
         }
         this.roundStarted = true;

@@ -26,6 +26,7 @@ class Ally1 extends Entity {
     }
 
     update() {
+
         this.attackTimer += this.gameEngine.clockTick;
         
         this.findTarget()
@@ -51,6 +52,8 @@ class Ally1 extends Entity {
 
         if (this.health <= 0) {
             this.state = "dying";
+            this.gameEngine.grid.grid[this.row][Math.trunc(this.x / 100)] = null;
+            console.log("this.row", this.row, Math.trunc(this.x / 100));
             this.remove();
         }
     }
@@ -82,8 +85,4 @@ class Ally1 extends Entity {
         //make it shoot a penut
     }
 
-    takeDamage(amount) {
-        this.health -= amount
-        if (this.health <= 0) this.remove()
-    }
 }
