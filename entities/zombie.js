@@ -90,7 +90,7 @@ class Zombie extends Entity {
 
         // Zombie reached the left edge (tower side)
         if (this.x < -5) {
-            this.remove();
+            this.health = 0; // Trigger removal in the next update
         }
     }
 
