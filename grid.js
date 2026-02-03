@@ -14,8 +14,11 @@ class Grid {
 
     initializeGrid() {
         const tower = new Tower(0, 0, this.gameEngine);
-        this.grid[0][0] = tower;
+        for (let row = 0; row < ROWS; row++) {
+            this.grid[row][0] = tower;
+        }
         this.gameEngine.addEntity(tower);
+        console.log(this.grid)
     }
 
     pixelToCell(x, y) {
