@@ -88,6 +88,10 @@ class Zombie extends Entity {
             this.animator = this.walking
         }
 
+        // Zombie reached the left edge (tower side)
+        if (this.x < -5) {
+            this.remove();
+        }
     }
 
     draw(ctx) {
