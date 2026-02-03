@@ -9,15 +9,15 @@ class Grid {
         this.grid = new Array(ROWS).fill().map(() => Array(COLS).fill(null));
         this.gameEngine = gameEngine;
         this.activeRows = [2];
+        this.tower = new Tower(0, 0, this.gameEngine);
         this.initializeGrid();
     }
 
     initializeGrid() {
-        const tower = new Tower(0, 0, this.gameEngine);
         for (let row = 0; row < ROWS; row++) {
-            this.grid[row][0] = tower;
+            this.grid[row][0] = this.tower;
         }
-        this.gameEngine.addEntity(tower);
+        this.gameEngine.addEntity(this.tower);
         console.log(this.grid)
     }
 
