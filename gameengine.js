@@ -20,6 +20,7 @@ class GameEngine {
         this.grid = new Grid(this);
         this.waveManager = new WaveManager(this);
         this.entities.push(this.waveManager);
+        this.player = new Player(this);
 
         // Options and the Details
         this.options = options || {
@@ -114,6 +115,8 @@ class GameEngine {
                 this.entities.splice(i, 1);
             }
         }
+        this.player.updatePoints(this.clockTick, false, 0);
+        console.log("Player Points:", this.player.getPoints());
     };
 
     loop() {

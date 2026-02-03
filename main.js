@@ -18,8 +18,12 @@ ASSET_MANAGER.downloadAll(() => {
 	const allyone = new Button(gameEngine, "Ally1", (button) => {
 		// This is the custom logic that runs when the button is clicked
 		console.log("Archer button clicked");
+		if(gameEngine.player.getPoints() >= 5) {
 		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Ally1'; 
 		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
+		} else { 
+			console.log("get more points bum");
+		}
 	});
 
 	gameEngine.addEntity(allyone);

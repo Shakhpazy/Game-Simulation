@@ -48,6 +48,7 @@ class Zombie extends Entity {
         if (this.health <= 0) {
             this._onDeathCallback?.(this);
             this.remove();
+            this.gameEngine.player.updatePoints(0, true, 0);
         }
 
         this.attackTimer += this.gameEngine.clockTick;

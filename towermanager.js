@@ -21,6 +21,7 @@ class TowerManager {
         let tower;
         if (this.selectedTowerType === 'Ally1') {
             tower = new Ally1(col * 100 + 10, row * 100 + 10, this.gameEngine);
+            this.gameEngine.player.updatePoints(0, false, 5); // Deduct points when placing tower
         }
         // Add more tower types here as needed
 
