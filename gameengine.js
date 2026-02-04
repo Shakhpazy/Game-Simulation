@@ -21,10 +21,8 @@ class GameEngine {
         this.waveManager = new WaveManager(this);
         this.entities.push(this.waveManager);
         this.player = new Player(this);
-
-        //player
-        this.player = new Player(this, this.grid.tower);
-        this.entities.push(this.player);
+        
+       
         // Options and the Details
         this.options = options || {
             debugging: false,
