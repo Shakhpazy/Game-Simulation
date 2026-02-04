@@ -10,7 +10,7 @@ class Ally1 extends Entity {
         this.health = 100;
         this.cost = 100;
         this.attackTimer = 0;
-        this.attackCooldown = 1; //1.0 second
+        this.attackCooldown = 0.7; //1.0 second
         this.damage = 34;
 
         // State
@@ -19,9 +19,11 @@ class Ally1 extends Entity {
         //ally entity
         this.isAlly = true
 
-        this.idle = new Animator(ASSET_MANAGER.getAsset('./Sprites/IchigoIdle.png'), 113, 0, 113, 100, 3, 0.2, true);
-        this.slash = new Animator(ASSET_MANAGER.getAsset('./Sprites/IchigoAttack.jpg'), 0, 0, 100, 100, 4, 0.09, false);
+        this.idle = new Animator(ASSET_MANAGER.getAsset('./Sprites/gokuIdle.png'), 0, 0, 39, 100, 1, 0.2, true);
+        this.slash1 = new Animator(ASSET_MANAGER.getAsset('./Sprites/gokuAttack1.png'), 0, 0, 60, 100, 2, 0.15, false);
+        this.slash2 = new Animator(ASSET_MANAGER.getAsset('./Sprites/gokuAttack2.png'), 0, 0, 60, 100, 2, 0.15, false);
         this.animator = this.idle;
+        this.attackNumber = 2;
         
     }
 
@@ -35,7 +37,14 @@ class Ally1 extends Entity {
             if (!this.isAttacking && this.attackTimer >= this.attackCooldown) {
                 this.attack();
                 this.isAttacking = true;
-                this.animator = this.slash;
+                if(this.attackNumber === 1){
+                    this.animator = this.slash1;
+                    this.attackNumber = 2;
+                } else {
+                    this.animator = this.slash2;
+                    this.attackNumber = 1;
+                }
+                
                 this.animator.reset() // restart animation
             }
 
@@ -60,7 +69,7 @@ class Ally1 extends Entity {
 
     draw(ctx) {
         //Had to hard code the coordinates of Ichigo
-        this.animator.drawFrame(this.gameEngine.clockTick, ctx, this.x - 25, this.y - 10);
+        this.animator.drawFrame(this.gameEngine.clockTick, ctx, this.x, this.y);
 
         // Draw health bar
         const healthPercent = this.health / this.maxHealth;
@@ -80,7 +89,7 @@ class Ally1 extends Entity {
 
     attack() {
         this.attackTimer = 0;
-        const proj = new Projectile(this.x + 30, this.y+30, this.damage, 200, this.isAlly, this.gameEngine, new Animator(ASSET_MANAGER.getAsset('./Sprites/IchigoSlash.png'), 0, 0, 53, 37, 1, 0.1, true));
+        const proj = new Projectile(this.x + 30, this.y, this.damage, 200, this.isAlly, this.gameEngine, new Animator(ASSET_MANAGER.getAsset('./Sprites/gokuBlast.png'), 0, 0, 67, 47, 1, 0.08, true));
         this.gameEngine.addEntity(proj)
         //make it shoot a penut
     }

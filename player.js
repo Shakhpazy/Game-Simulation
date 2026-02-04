@@ -1,22 +1,44 @@
 class Player {
 
-    constructor(gameEngine, tower) {
+    constructor(gameEngine) {
         this.gameEngine = gameEngine;
-        this.money = 50;
-        this.health = tower.health;
+        // testing purposes. Change it to 3 later
+        this.points = 30000;
+        this.passiveRate = 0.5; // points per second
+        this.killPoints = 2; // points per kill
+        this.passiveTime = 0;
     }
 
-    update() {
-        if (this.health <= 0) {
-            console.log("Game Over");
-            this.gameEngine.stop();
+
+    getPoints() {
+        return this.points;
+    }
+
+    updatePoints(timer, killedEnemy,deduction) {
+        this.passiveTime += timer;
+        if (this.passiveTime >= 1) {
+            this.points += this.passiveRate;
+            this.passiveTime = 0;
+        }
+        if (killedEnemy) {
+            this.points += this.killPoints;
+        }
+        if(deduction > 0) {
+            this.points -= deduction;
         }
     }
 
     draw(ctx) {
+
         ctx.fillStyle = "black";
-        ctx.font = "20px Arial";
-        ctx.fillText(`Money: $${this.money}`, 890, 535);
-        ctx.fillText(`Health: ${this.health}`, 890, 560);
+        ctx.font = "16px Arial";
+        ctx.textAlign = "right";
+        
+        const padding = 10;
+        const bottomLeftX = 150;
+        const bottomLeftY = ctx.canvas.height - padding;
+
+        ctx.fillText("Points: " + this.points, bottomLeftX, bottomLeftY);
     }
+
 }

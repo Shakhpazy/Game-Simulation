@@ -3,7 +3,7 @@ class TowerManager {
     constructor(gameEngine) {
         this.gameEngine = gameEngine;
         this.selectedTowerType = null;
-        this.towers = new Set(["Ally1"]);
+        this.towers = new Set(["Ally1", "Ally2", "Ally3"]); 
     }
 
     selectTower(towerType) {
@@ -37,6 +37,15 @@ class TowerManager {
         let tower;
         if (this.selectedTowerType === 'Ally1') {
             tower = new Ally1(col * 100 + 10, row * 100 + 10, this.gameEngine);
+            this.gameEngine.player.updatePoints(0, false, 5); // Deduct points when placing tower
+        }
+        if (this.selectedTowerType === 'Ally2') {
+            tower = new Ally2(col * 100 + 10, row * 100 + 10, this.gameEngine);
+            this.gameEngine.player.updatePoints(0, false, 5); // Deduct points when placing tower
+        }
+        if (this.selectedTowerType === 'Ally3') {
+            tower = new Ally3(col * 100 + 10, row * 100 + 10, this.gameEngine);
+            this.gameEngine.player.updatePoints(0, false, 5); // Deduct points when placing tower
         }
         // Add more tower types here as needed
 

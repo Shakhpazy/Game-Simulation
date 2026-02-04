@@ -20,10 +20,9 @@ class GameEngine {
         this.grid = new Grid(this);
         this.waveManager = new WaveManager(this);
         this.entities.push(this.waveManager);
-
-        //player
-        this.player = new Player(this, this.grid.tower);
-        this.entities.push(this.player);
+        this.player = new Player(this);
+        
+       
         // Options and the Details
         this.options = options || {
             debugging: false,
@@ -117,6 +116,8 @@ class GameEngine {
                 this.entities.splice(i, 1);
             }
         }
+        this.player.updatePoints(this.clockTick, false, 0);
+
     };
 
     loop() {
