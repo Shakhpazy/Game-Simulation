@@ -116,7 +116,7 @@ class GameEngine {
             }
         }
         this.player.updatePoints(this.clockTick, false, 0);
-        console.log("Player Points:", this.player.getPoints());
+
     };
 
     loop() {

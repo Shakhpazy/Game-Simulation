@@ -1,13 +1,13 @@
 class Button {
 
-    constructor(gameEngine, label, onClick) {
+    constructor(x, y, gameEngine, label, onClick) {
         this.gameEngine = gameEngine;
         this.label = label;
         this.onClick = onClick;
         this.width = 100;
         this.height = 50;
-        this.x = 0; 
-        this.y = 550;
+        this.x = x; 
+        this.y = y;
         this.selected = false;
     }
 

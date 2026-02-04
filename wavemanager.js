@@ -64,7 +64,9 @@ class WaveManager {
         const padding = 10;
         const bottomRightX = ctx.canvas.width - padding;
         const bottomRightY = ctx.canvas.height - padding;
-        
+
+
+        ctx.fillText(`Current Points: ${Math.floor(this.gameEngine.player.getPoints())}`, bottomRightX, bottomRightY - 80);
         ctx.fillText(`Round: ${this.currentround}`, bottomRightX, bottomRightY - 60);
         ctx.fillText(`Zombies: ${this.activeZombies.size}/${this.zombiesPerRound}`, bottomRightX, bottomRightY - 40);
         ctx.fillText(`Zombies Per Round: ${this.zombiesPerRound}`, bottomRightX, bottomRightY - 20);

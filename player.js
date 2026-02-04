@@ -2,7 +2,8 @@ class Player {
 
     constructor(gameEngine) {
         this.gameEngine = gameEngine;
-        this.points = 3;
+        // testing purposes. Change it to 3 later
+        this.points = 30000;
         this.passiveRate = 0.5; // points per second
         this.killPoints = 2; // points per kill
         this.passiveTime = 0;
@@ -25,6 +26,19 @@ class Player {
         if(deduction > 0) {
             this.points -= deduction;
         }
+    }
+
+    draw(ctx) {
+
+        ctx.fillStyle = "black";
+        ctx.font = "16px Arial";
+        ctx.textAlign = "right";
+        
+        const padding = 10;
+        const bottomLeftX = 150;
+        const bottomLeftY = ctx.canvas.height - padding;
+
+        ctx.fillText("Points: " + this.points, bottomLeftX, bottomLeftY);
     }
 
 }
