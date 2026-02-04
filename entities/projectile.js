@@ -23,6 +23,11 @@ class Projectile extends Entity {
                 this.remove(); // Remove the projectile after hitting
             }
         })
+
+        // Remove projectile if it goes off screen
+        if (this.x > this.gameEngine.surfaceWidth || this.x < 0) {
+            this.remove();
+        }
     }
 
 

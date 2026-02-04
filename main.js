@@ -21,10 +21,15 @@ ASSET_MANAGER.downloadAll(() => {
 	const ctx = canvas.getContext("2d");
 	gameEngine.init(ctx);
 
-	const allyone = new Button(0, 500, gameEngine, "Ally1", (button) => {
+	const shovel = new Button(0, gameEngine, "Shovel", 0, 0, 510, (button) => {
 		// This is the custom logic that runs when the button is clicked
-		console.log("ally 1 button clicked");
-		if(gameEngine.player.getPoints() >= 1) {
+		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Shovel'; 
+		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
+	});
+
+	const allyone = new Button(0, 500, gameEngine, "Ally1", 25, 103, 510, (button) => {
+		// This is the custom logic that runs when the button is clicked
+		console.log("Archer button clicked");
 		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Ally1'; 
 		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
 		} else { 
@@ -55,6 +60,7 @@ ASSET_MANAGER.downloadAll(() => {
 	gameEngine.addEntity(allyone);
 	gameEngine.addEntity(allytwo);
 	gameEngine.addEntity(allythree);
+	gameEngine.addEntity(shovel);
 
 
 	
