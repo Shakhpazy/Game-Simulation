@@ -11,6 +11,8 @@ class Grid {
         this.activeRows = [2];
         this.tower = new Tower(0, 0, this.gameEngine);
         this.initializeGrid();
+        this.bgImage = new Image();
+        this.bgImage.src = "./Sprites/grid.png";
     }
 
     initializeGrid() {
@@ -42,11 +44,12 @@ class Grid {
     draw(ctx) {
         const mouseOver = this.getCellHover()
         const mouseClicked = this.getCellClicked()
-
+        ctx.clearRect(0, 0, COLS * WIDTH, ROWS * HEIGHT);
+        
         ctx.strokeStyle = "black";
         ctx.lineWidth = 1;
         
-        // Draw horizontal lines
+        /*/ Draw horizontal lines
         for (let row = 0; row <= ROWS; row++) {
             ctx.beginPath();
             ctx.moveTo(0, row * HEIGHT);
@@ -61,6 +64,10 @@ class Grid {
             ctx.lineTo(col * WIDTH, ROWS * HEIGHT);
             ctx.stroke();
         }
+        */
+        ctx.drawImage(this.bgImage, 0, 0, COLS * WIDTH, ROWS * HEIGHT);
+    
+
         
         if (mouseClicked) {
             const [row, col] = mouseClicked;

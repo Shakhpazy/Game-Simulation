@@ -14,6 +14,7 @@ ASSET_MANAGER.queueDownload('./Sprites/gokuIdle.png');
 ASSET_MANAGER.queueDownload('./Sprites/gokuBlast.png');
 ASSET_MANAGER.queueDownload('./Sprites/gokuAttack1.png');
 ASSET_MANAGER.queueDownload('./Sprites/gokuAttack2.png');
+ASSET_MANAGER.queueDownload('./Sprites/grid.png');
 
 
 
