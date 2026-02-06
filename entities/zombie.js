@@ -2,7 +2,7 @@ class Zombie extends Entity {
 
     constructor(row, gameEngine) {
         const x = 800; // Starting x position (right side)
-        const y = row * 100 + 12; // Calculate y from row
+        const y = row * 100 + 112; // Calculate y from row 112 B/C 100 to acccount for starting postion of grid high
         super(x, y, 80, 80);
         this.gameEngine = gameEngine
 

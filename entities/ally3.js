@@ -1,7 +1,7 @@
 class Ally3 extends Entity {
 
     constructor(x, y, gameEngine) {
-        super(x, y, 80, 80); //80 x 80 pixles is the size of the tungtungsahur (entites should all have same size)
+        super(x, y+100, 80, 80); //80 x 80 pixles is the size of the tungtungsahur (entites should all have same size)
         this.gameEngine = gameEngine
         this.row = Math.trunc(y / 100);
 

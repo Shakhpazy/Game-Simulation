@@ -2,6 +2,7 @@ const COLS = 10; // number of columns in the grid
 const ROWS = 5; // number of rows in the grid
 const WIDTH = 100; // width of each cell
 const HEIGHT = 100; // height of each cell
+const YSTART = 100; 
 
 class Grid {
 
@@ -9,7 +10,7 @@ class Grid {
         this.grid = new Array(ROWS).fill().map(() => Array(COLS).fill(null));
         this.gameEngine = gameEngine;
         this.activeRows = [2];
-        this.tower = new Tower(0, 0, this.gameEngine);
+        this.tower = new Tower(0, YSTART, this.gameEngine);
         this.initializeGrid();
         this.bgImage = new Image();
         this.bgImage.src = "./Sprites/grid.png";
@@ -24,10 +25,10 @@ class Grid {
     }
 
     pixelToCell(x, y) {
-        const row = Math.trunc(y / HEIGHT);
+        const row = Math.trunc((y - YSTART) / HEIGHT);
         const col = Math.trunc(x / WIDTH);
     
-        if (row < 0 || row >= ROWS || col < 0 || col >= COLS) return null;
+        if (y < YSTART || row < 0 || row >= ROWS || col < 0 || col >= COLS) return null;
         return [row, col];
     }
     
@@ -44,7 +45,7 @@ class Grid {
     draw(ctx) {
         const mouseOver = this.getCellHover()
         const mouseClicked = this.getCellClicked()
-        ctx.clearRect(0, 0, COLS * WIDTH, ROWS * HEIGHT);
+        ctx.clearRect(0, YSTART, COLS * WIDTH, ROWS * HEIGHT);
         
         ctx.strokeStyle = "black";
         ctx.lineWidth = 1;
@@ -65,8 +66,8 @@ class Grid {
             ctx.stroke();
         }
         */
-        ctx.drawImage(this.bgImage, 0, 0, COLS * WIDTH, ROWS * HEIGHT);
-    
+        ctx.drawImage(this.bgImage, 0, YSTART, COLS * WIDTH, ROWS * HEIGHT);
+
 
         
         if (mouseClicked) {
@@ -74,6 +75,7 @@ class Grid {
             if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
                 this.gameEngine.towerManager.placeTower(row, col);
             }
+            console.log(row, col)
             this.gameEngine.click = null
         }
 
@@ -83,10 +85,11 @@ class Grid {
                 ctx.save();
                 ctx.fillStyle = "purple";
                 ctx.globalAlpha = 0.3;
-                ctx.fillRect(col * WIDTH, row * HEIGHT, WIDTH, HEIGHT);
+                ctx.fillRect(col * WIDTH, (row * HEIGHT) + YSTART, WIDTH, HEIGHT);
                 ctx.restore();
             }
         }
+
     }
 
 

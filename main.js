@@ -23,14 +23,14 @@ ASSET_MANAGER.downloadAll(() => {
 	const ctx = canvas.getContext("2d");
 	gameEngine.init(ctx);
 
-	const shovel = new Button(gameEngine, "Shovel", 0, 500, 500, (button) => {
+	const shovel = new Button(gameEngine, "Shovel", 0, 500, 650, (button) => {
 		// This is the custom logic that runs when the button is clicked
 		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Shovel'; 
 		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
 	});
 
 
-	const allyone = new Button(gameEngine, "Ally1", 15, 0, 500, (button) => {
+	const allyone = new Button(gameEngine, "Ally1", 15, 0, 650, (button) => {
 		console.log("ally 1 button clicked");
 		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Ally1'; 
 		button.gameEngine.selectedButton = button;
@@ -38,7 +38,7 @@ ASSET_MANAGER.downloadAll(() => {
 		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
 		// Money check happens later when placing on grid, not here
 	});
-	const allytwo = new Button(gameEngine, "Ally2", 5, 150, 500,(button) => {
+	const allytwo = new Button(gameEngine, "Ally2", 5, 150, 650,(button) => {
 		console.log("ally 2 button clicked");
 		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Ally2'; 
 		button.gameEngine.selectedButton = button;
@@ -46,7 +46,7 @@ ASSET_MANAGER.downloadAll(() => {
 		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
 		// Money check happens later when placing on grid, not here
 	});
-	const allythree = new Button(gameEngine, "Ally3", 10, 300, 500, (button) => {
+	const allythree = new Button(gameEngine, "Ally3", 10, 300, 650, (button) => {
 		console.log("ally 3 button clicked");
 		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Ally3'; 
 		button.gameEngine.selectedButton = button;
