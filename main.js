@@ -14,7 +14,6 @@ ASSET_MANAGER.queueDownload('./Sprites/gokuIdle.png');
 ASSET_MANAGER.queueDownload('./Sprites/gokuBlast.png');
 ASSET_MANAGER.queueDownload('./Sprites/gokuAttack1.png');
 ASSET_MANAGER.queueDownload('./Sprites/gokuAttack2.png');
-ASSET_MANAGER.queueDownload('./Sprites/grid.png');
 
 
 
@@ -32,25 +31,25 @@ ASSET_MANAGER.downloadAll(() => {
 	});
 
 
-	const allyone = new Button(gameEngine, "Ally1", 15, 0, 650, (button) => {
+	const allyone = new Button(gameEngine, "Goku", 15, 0, 650, (button) => {
 		console.log("ally 1 button clicked");
-		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Ally1'; 
+		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Goku'; 
 		button.gameEngine.selectedButton = button;
 		button.gameEngine.click = null;
 		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
 		// Money check happens later when placing on grid, not here
 	});
-	const allytwo = new Button(gameEngine, "Ally2", 5, 150, 650,(button) => {
+	const allytwo = new Button(gameEngine, "Ichigo", 5, 150, 650,(button) => {
 		console.log("ally 2 button clicked");
-		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Ally2'; 
+		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Ichigo'; 
 		button.gameEngine.selectedButton = button;
 		button.gameEngine.click = null;
 		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
 		// Money check happens later when placing on grid, not here
 	});
-	const allythree = new Button(gameEngine, "Ally3", 10, 300, 650, (button) => {
+	const allythree = new Button(gameEngine, "Naruto", 10, 300, 650, (button) => {
 		console.log("ally 3 button clicked");
-		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Ally3'; 
+		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Naruto'; 
 		button.gameEngine.selectedButton = button;
 		button.gameEngine.click = null;
 		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
