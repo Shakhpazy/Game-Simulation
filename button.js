@@ -20,9 +20,6 @@ class Button {
             if (mouseX >= this.x && mouseX <= this.x + this.width &&
                 mouseY >= this.y && mouseY <= this.y + this.height) {
                 this.onClick(this);
-                // mark this as the globally selected button so other buttons clear
-                this.gameEngine.selectedButton = this;
-                this.gameEngine.click = null; // Reset click to avoid multiple triggers
             }
         }
         // Ensure only the globally selected button is highlighted
