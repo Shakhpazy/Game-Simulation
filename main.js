@@ -24,8 +24,10 @@ ASSET_MANAGER.downloadAll(() => {
 	gameEngine.init(ctx);
 
 	const shovel = new Button(gameEngine, "Shovel", 0, 500, 650, (button) => {
-		// This is the custom logic that runs when the button is clicked
+		console.log("shovel 1 button clicked");
 		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Shovel'; 
+		button.gameEngine.selectedButton = button;
+		button.gameEngine.click = null;
 		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
 	});
 
