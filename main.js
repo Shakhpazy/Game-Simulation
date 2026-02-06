@@ -31,41 +31,28 @@ ASSET_MANAGER.downloadAll(() => {
 
 
 	const allyone = new Button(gameEngine, "Ally1", 15, 0, 500, (button) => {
-		// This is the custom logic that runs when the button is clicked
 		console.log("ally 1 button clicked");
-		if(gameEngine.player.getPoints() >= 15) {
 		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Ally1'; 
-		// mark this as the globally selected button so other buttons clear
-        button.gameEngine.selectedButton = button;
-        button.gameEngine.click = null; // Reset click to avoid multiple triggers
+		button.gameEngine.selectedButton = button;
+		button.gameEngine.click = null;
 		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
-		} else { 
-			console.log("get more points bum");
-		}
+		// Money check happens later when placing on grid, not here
 	});
 	const allytwo = new Button(gameEngine, "Ally2", 5, 150, 500,(button) => {
-		// This is the custom logic that runs when the button is clicked
 		console.log("ally 2 button clicked");
-		if(gameEngine.player.getPoints() >= 5) {
 		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Ally2'; 
 		button.gameEngine.selectedButton = button;
-        button.gameEngine.click = null; // Reset click to avoid multiple triggers
+		button.gameEngine.click = null;
 		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
-		} else { 
-			console.log("get more points bum");
-		}
+		// Money check happens later when placing on grid, not here
 	});
 	const allythree = new Button(gameEngine, "Ally3", 10, 300, 500, (button) => {
-		// This is the custom logic that runs when the button is clicked
 		console.log("ally 3 button clicked");
-		if(gameEngine.player.getPoints() >= 10) {
 		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Ally3'; 
 		button.gameEngine.selectedButton = button;
-        button.gameEngine.click = null; // Reset click to avoid multiple triggers
+		button.gameEngine.click = null;
 		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
-		} else { 
-			console.log("get more points bum");
-		}
+		// Money check happens later when placing on grid, not here
 	});
 
 	gameEngine.addEntity(allyone);

@@ -35,20 +35,26 @@ class TowerManager {
         }
 
         let tower;
+        let bought = false
         if (this.selectedTowerType === 'Ally1') {
             tower = new Ally1(col * 100 + 10, row * 100 + 10, this.gameEngine);
-            this.gameEngine.player.updatePoints(0, false, 5); // Deduct points when placing tower
+            bought = this.gameEngine.player.points >= tower.cost ? true : false;
         }
         if (this.selectedTowerType === 'Ally2') {
             tower = new Ally2(col * 100 + 10, row * 100 + 10, this.gameEngine);
-            this.gameEngine.player.updatePoints(0, false, 5); // Deduct points when placing tower
+            bought = this.gameEngine.player.points >= tower.cost ? true : false;
         }
         if (this.selectedTowerType === 'Ally3') {
             tower = new Ally3(col * 100 + 10, row * 100 + 10, this.gameEngine);
-            this.gameEngine.player.updatePoints(0, false, 5); // Deduct points when placing tower
+            bought = this.gameEngine.player.points >= tower.cost ? true : false;
         }
         // Add more tower types here as needed
 
+        // if we dont have enough money so we cant place it
+        if (!bought) {
+            return false;
+        }
+        this.gameEngine.player.updatePoints(0, false, tower.cost); // Deduct points when placing tower
         this.gameEngine.grid.grid[row][col] = tower;
         this.gameEngine.addEntity(tower);
         this.selectedTowerType = null;

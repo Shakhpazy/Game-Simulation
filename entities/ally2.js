@@ -8,7 +8,7 @@ class Ally2 extends Entity {
         // Combat stats
         this.maxHealth = 100;
         this.health = 100;
-        this.cost = 100;
+        this.cost = 5;
         this.attackTimer = 0;
         this.attackCooldown = 1; //1.0 second
         this.damage = 34;
