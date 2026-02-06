@@ -2,7 +2,8 @@ const COLS = 10; // number of columns in the grid
 const ROWS = 5; // number of rows in the grid
 const WIDTH = 100; // width of each cell
 const HEIGHT = 100; // height of each cell
-const YSTART = 100; 
+const YSTART = 250;
+const XSTART = 100; 
 
 class Grid {
 
@@ -13,7 +14,7 @@ class Grid {
         this.tower = new Tower(0, YSTART, this.gameEngine);
         this.initializeGrid();
         this.bgImage = new Image();
-        this.bgImage.src = "./Sprites/grid.png";
+        //this.bgImage.src = "./Sprites/grass.jpg";
     }
 
     initializeGrid() {
@@ -26,9 +27,9 @@ class Grid {
 
     pixelToCell(x, y) {
         const row = Math.trunc((y - YSTART) / HEIGHT);
-        const col = Math.trunc(x / WIDTH);
+        const col = Math.trunc((x - XSTART) / WIDTH);
     
-        if (y < YSTART || row < 0 || row >= ROWS || col < 0 || col >= COLS) return null;
+        if (y < YSTART || x < XSTART || row < 0 || row >= ROWS || col < 0 || col >= COLS) return null;
         return [row, col];
     }
     
@@ -45,30 +46,28 @@ class Grid {
     draw(ctx) {
         const mouseOver = this.getCellHover()
         const mouseClicked = this.getCellClicked()
-        ctx.clearRect(0, YSTART, COLS * WIDTH, ROWS * HEIGHT);
+        ctx.clearRect(XSTART, YSTART, COLS * WIDTH, ROWS * HEIGHT);
         
         ctx.strokeStyle = "black";
         ctx.lineWidth = 1;
         
-        /*/ Draw horizontal lines
+        // Draw horizontal lines
         for (let row = 0; row <= ROWS; row++) {
             ctx.beginPath();
-            ctx.moveTo(0, row * HEIGHT);
-            ctx.lineTo(COLS * WIDTH, row * HEIGHT);
+            ctx.moveTo(XSTART, YSTART + row * HEIGHT);
+            ctx.lineTo(XSTART + COLS * WIDTH, YSTART + row * HEIGHT);
             ctx.stroke();
         }
         
         // Draw vertical lines
         for (let col = 0; col <= COLS; col++) {
             ctx.beginPath();
-            ctx.moveTo(col * WIDTH, 0);
-            ctx.lineTo(col * WIDTH, ROWS * HEIGHT);
+            ctx.moveTo(XSTART + col * WIDTH, YSTART);
+            ctx.lineTo(XSTART + col * WIDTH, YSTART + ROWS * HEIGHT);
             ctx.stroke();
         }
-        */
-        ctx.drawImage(this.bgImage, 0, YSTART, COLS * WIDTH, ROWS * HEIGHT);
-
-
+        
+        // ctx.drawImage(this.bgImage, 0, YSTART, COLS * WIDTH, ROWS * HEIGHT);
         
         if (mouseClicked) {
             const [row, col] = mouseClicked;
@@ -85,17 +84,12 @@ class Grid {
                 ctx.save();
                 ctx.fillStyle = "purple";
                 ctx.globalAlpha = 0.3;
-                ctx.fillRect(col * WIDTH, (row * HEIGHT) + YSTART, WIDTH, HEIGHT);
+                ctx.fillRect(XSTART + col * WIDTH, YSTART + row * HEIGHT, WIDTH, HEIGHT);
                 ctx.restore();
             }
         }
 
     }
-
-
-
-
-
 }
 
 
