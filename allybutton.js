@@ -1,4 +1,4 @@
-class Button {
+class AllyButton {
 
     constructor(gameEngine, label, price, x, y, onClick) {
         this.gameEngine = gameEngine;

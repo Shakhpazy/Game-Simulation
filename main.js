@@ -22,45 +22,6 @@ ASSET_MANAGER.downloadAll(() => {
 	const ctx = canvas.getContext("2d");
 	gameEngine.init(ctx);
 
-	const shovel = new Button(gameEngine, "Shovel", 0, 500, 650, (button) => {
-		console.log("shovel 1 button clicked");
-		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Shovel'; 
-		button.gameEngine.selectedButton = button;
-		button.gameEngine.click = null;
-		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
-	});
-
-
-	const allyone = new Button(gameEngine, "Goku", 15, 0, 650, (button) => {
-		console.log("ally 1 button clicked");
-		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Goku'; 
-		button.gameEngine.selectedButton = button;
-		button.gameEngine.click = null;
-		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
-		// Money check happens later when placing on grid, not here
-	});
-	const allytwo = new Button(gameEngine, "Ichigo", 5, 150, 650,(button) => {
-		console.log("ally 2 button clicked");
-		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Ichigo'; 
-		button.gameEngine.selectedButton = button;
-		button.gameEngine.click = null;
-		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
-		// Money check happens later when placing on grid, not here
-	});
-	const allythree = new Button(gameEngine, "Naruto", 10, 300, 650, (button) => {
-		console.log("ally 3 button clicked");
-		gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Naruto'; 
-		button.gameEngine.selectedButton = button;
-		button.gameEngine.click = null;
-		console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
-		// Money check happens later when placing on grid, not here
-	});
-
-	gameEngine.addEntity(allyone);
-	gameEngine.addEntity(allytwo);
-	gameEngine.addEntity(allythree);
-	gameEngine.addEntity(shovel);
-
 
 	
 	gameEngine.start();

@@ -57,19 +57,15 @@ class WaveManager {
     }
 
     draw(ctx) {
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "white";
         ctx.font = "16px Arial";
         ctx.textAlign = "right";
-        
-        const padding = 10;
-        const bottomRightX = ctx.canvas.width - padding;
-        const bottomRightY = ctx.canvas.height - padding;
 
 
-        ctx.fillText(`Current Points: ${Math.floor(this.gameEngine.player.getPoints())}`, bottomRightX, bottomRightY - 100);
-        ctx.fillText(`Round: ${this.currentround}`, bottomRightX, bottomRightY - 80);
-        ctx.fillText(`Zombies: ${this.activeZombies.size}/${this.zombiesPerRound}`, bottomRightX, bottomRightY - 60);
-        ctx.fillText(`Zombies Per Round: ${this.zombiesPerRound}`, bottomRightX, bottomRightY - 40);
+        ctx.fillText(`Current Points: ${Math.floor(this.gameEngine.player.getPoints())}`, 1580, 20);
+        ctx.fillText(`Round: ${this.currentround}`, 1580, 40);
+        ctx.fillText(`Zombies: ${this.activeZombies.size}/${this.zombiesPerRound}`, 1580, 60);
+        ctx.fillText(`Zombies Per Round: ${this.zombiesPerRound}`, 1580, 80);
     }
 
 }
