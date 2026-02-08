@@ -1,14 +1,15 @@
 class Ally3 extends Entity {
 
-    constructor(x, y, gameEngine) {
+    constructor(x, y, row, col, gameEngine) {
         super(x, y, 80, 80); //80 x 80 pixles is the size of the tungtungsahur (entites should all have same size)
         this.gameEngine = gameEngine
-        this.row = Math.trunc(y / 100);
+        this.row = row;
+        this.col = col;
 
         // Combat stats
         this.maxHealth = 100;
         this.health = 100;
-        this.cost = 100;
+        this.cost = 10;
         this.attackTimer = 0;
         this.attackCooldown = 1; //1.0 second
         this.damage = 50;
@@ -52,8 +53,8 @@ class Ally3 extends Entity {
 
         if (this.health <= 0) {
             this.state = "dying";
-            this.gameEngine.grid.grid[this.row][Math.trunc(this.x / 100)] = null;
-            console.log("this.row", this.row, Math.trunc(this.x / 100));
+            this.gameEngine.grid.grid[this.row][this.col] = null; // use stored row/col
+            console.log("Removed ally at row:", this.row, "col:", this.col);
             this.remove();
         }
     }

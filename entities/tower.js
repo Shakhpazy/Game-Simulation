@@ -1,53 +1,62 @@
 class Tower extends Entity {
 
-    constructor(x, y, gameEngine) {
-        super(x+10, y+10, 80, 480); //80 x 80 pixles is the size of the tungtungsahur (entites should all have same size)
+    constructor(x, y, row, gameEngine) {
+        super(x, y, 80, 80); //80 x 80 pixles is the size of the tungtungsahur (entites should all have same size)
         this.gameEngine = gameEngine
-        this.row = Math.trunc(y / 100);
+        this.row = row;
+        this.col = 0;
 
         // Combat stats
-        this.maxHealth = 100;
-        this.health = 100;
+        this.maxHealth = 1;
+        this.health = 1;
+        this.damage = 100;
+
+        // State
+        this.state = "idle";
+        this.isAlive = true;
 
         //ally entity
         this.isAlly = true
+
+        //this.idle = new Animator(ASSET_MANAGER.getAsset('./Sprites/cart.png'), 0, 0, 52, 100, 4, 0.2, true);
+        //this.slash = new Animator(ASSET_MANAGER.getAsset('./Sprites/cart.png'), 0, 0, 59, 100, 1, 0.17, false);
+        //this.animator = this.idle;
     }
 
     update() {
-        if (this.health <= 0) {
-            this.gameEngine.grid.grid[this.row][Math.trunc(this.x / 100)] = null;
-            // change this image like a broken tower or something this needs to be done only 1 time tho
+        super.updateBB();
+        if (this.x  >= 1500) {
+            super.remove();
         }
+
+        if (this.state == "attacking") {
+            this.x += (200 * this.gameEngine.clockTick);
+        }
+
+
+        this.gameEngine.entities.forEach(entity => {
+            if ((entity instanceof Zombie) 
+                && entity.isAlly !== this.isAlly && this.hitbox.collide(entity.hitbox)) {
+                this.state = "attacking";
+                if (this.isAlive) {
+                    this.gameEngine.grid.grid[this.row][0] = null;
+                    this.isAlive = false;
+                }
+                entity.health -= entity.health;
+            }
+        })
     }
 
     draw(ctx) {
-        // Draw tower body (keeps the existing visual)
-        ctx.fillStyle = "green";
-        ctx.fillRect(this.x - 7, this.y, this.width, this.height);
+        //Had to hard code the coordinates of Ichigo
+        //this.animator.drawFrame(this.gameEngine.clockTick, ctx, this.x, this.y - 10);
 
-        // Big health bar at the bottom of the screen
-        const healthPercent = Math.max(0, Math.min(1, this.health / this.maxHealth));
-        const margin = 20;
-        const barWidth = ctx.canvas.width - margin * 2;
-        const barHeight = 24;
-        const barX = margin;
-        const barY = ctx.canvas.height - margin - barHeight;
-
-        // Border/background
-        ctx.fillStyle = "black";
-        ctx.fillRect(barX - 2, barY - 2, barWidth + 4, barHeight + 4);
-
-        // Empty (red) and filled (green) portions
-        ctx.fillStyle = "red";
-        ctx.fillRect(barX, barY, barWidth, barHeight);
-        ctx.fillStyle = "green";
-        ctx.fillRect(barX, barY, barWidth * healthPercent, barHeight);
-
-        // Health text
-        ctx.fillStyle = "white";
-        ctx.font = "16px Arial";
-        ctx.textAlign = "center";
-        ctx.fillText(`${Math.round(this.health)}/${this.maxHealth}`, barX + barWidth / 2, barY + barHeight / 2 + 6);
+        // Placeholder sprite: small centered rectangle
+        const size = 40;
+        const px = this.x + (this.width - size) / 2;
+        const py = this.y + size; // adjust if needed for your coordinate origin
+        ctx.fillStyle = "#666";
+        ctx.fillRect(px, py, size, size);
 
         super.draw(ctx);
     }

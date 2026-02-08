@@ -3,7 +3,7 @@ class TowerManager {
     constructor(gameEngine) {
         this.gameEngine = gameEngine;
         this.selectedTowerType = null;
-        this.towers = new Set(["Ally1", "Ally2", "Ally3"]); 
+        this.towers = new Set(["Goku", "Ichigo", "Naruto"]); 
     }
 
     selectTower(towerType) {
@@ -35,20 +35,30 @@ class TowerManager {
         }
 
         let tower;
-        if (this.selectedTowerType === 'Ally1') {
-            tower = new Ally1(col * 100 + 10, row * 100 + 10, this.gameEngine);
-            this.gameEngine.player.updatePoints(0, false, 15); // Deduct points when placing tower
+        let bought = false
+        
+        const x = XSTART + col * WIDTH + 10;
+        const y = YSTART + row * HEIGHT + 10;
+
+        if (this.selectedTowerType === 'Goku') {
+            tower = new Ally1(x, y, row, col, this.gameEngine);
+            bought = this.gameEngine.player.points >= tower.cost ? true : false;
         }
-        if (this.selectedTowerType === 'Ally2') {
-            tower = new Ally2(col * 100 + 10, row * 100 + 10, this.gameEngine);
-            this.gameEngine.player.updatePoints(0, false, 5); // Deduct points when placing tower
+        if (this.selectedTowerType === 'Ichigo') {
+            tower = new Ally2(x, y, row, col, this.gameEngine);
+            bought = this.gameEngine.player.points >= tower.cost ? true : false;
         }
-        if (this.selectedTowerType === 'Ally3') {
-            tower = new Ally3(col * 100 + 10, row * 100 + 10, this.gameEngine);
-            this.gameEngine.player.updatePoints(0, false, 20); // Deduct points when placing tower
+        if (this.selectedTowerType === 'Naruto') {
+            tower = new Ally3(x, y, row, col, this.gameEngine);
+            bought = this.gameEngine.player.points >= tower.cost ? true : false;
         }
         // Add more tower types here as needed
 
+        // if we dont have enough money so we cant place it
+        if (!bought) {
+            return false;
+        }
+        this.gameEngine.player.updatePoints(0, false, tower.cost); // Deduct points when placing tower
         this.gameEngine.grid.grid[row][col] = tower;
         this.gameEngine.addEntity(tower);
         this.selectedTowerType = null;

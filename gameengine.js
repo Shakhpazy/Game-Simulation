@@ -16,11 +16,16 @@ class GameEngine {
         this.keys = {};
 
         // game
-        this.towerManager = new TowerManager(this);
-        this.grid = new Grid(this);
-        this.waveManager = new WaveManager(this);
-        this.entities.push(this.waveManager);
-        this.player = new Player(this);
+        this.gamemanager = new gameManager(this);
+        this.towerManager;
+        this.grid;
+        this.waveManager;
+        this.player;
+        this.allybuttons;
+
+        // this.addEntity(this.waveManager);
+        // this.addEntity(this.grid);
+        this.addEntity(this.gamemanager);
         
        
         // Options and the Details
@@ -92,8 +97,10 @@ class GameEngine {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
-        // Draw the grid
-        this.grid.draw(this.ctx);
+        if (this.grid) {
+            this.grid.draw(this.ctx);
+        }
+
         // Draw latest things first
         for (let i = this.entities.length - 1; i >= 0; i--) {
             this.entities[i].draw(this.ctx, this);
@@ -116,7 +123,10 @@ class GameEngine {
                 this.entities.splice(i, 1);
             }
         }
-        this.player.updatePoints(this.clockTick, false, 0);
+        //this can be moved internally to the actual player
+        if (this.player) {
+            this.player.updatePoints(this.clockTick, false, 0);
+        }
 
     };
 
