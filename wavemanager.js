@@ -1,6 +1,6 @@
 class WaveManager {
 
-    constructor(gameEngine) {
+    constructor(gameEngine, gamemode) {
         this.gameEngine = gameEngine
 
         this.debug = true;
@@ -13,6 +13,8 @@ class WaveManager {
 
         this.openedrows1 = false;
         this.openedrows2 = false;
+
+        this.gamemode = gamemode;
 
         //to start the round
         this.spawnZombies();

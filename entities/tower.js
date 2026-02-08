@@ -18,9 +18,9 @@ class Tower extends Entity {
         //ally entity
         this.isAlly = true
 
-        this.idle = new Animator(ASSET_MANAGER.getAsset('./Sprites/NarutoIdle.png'), 0, 0, 52, 100, 4, 0.2, true);
-        this.slash = new Animator(ASSET_MANAGER.getAsset('./Sprites/NarutoAttack.png'), 0, 0, 59, 100, 1, 0.17, false);
-        this.animator = this.idle;
+        //this.idle = new Animator(ASSET_MANAGER.getAsset('./Sprites/cart.png'), 0, 0, 52, 100, 4, 0.2, true);
+        //this.slash = new Animator(ASSET_MANAGER.getAsset('./Sprites/cart.png'), 0, 0, 59, 100, 1, 0.17, false);
+        //this.animator = this.idle;
     }
 
     update() {
