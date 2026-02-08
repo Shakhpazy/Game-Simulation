@@ -72,11 +72,7 @@ class Zombie extends Entity {
                 }
             }
             if ((entity instanceof Tower) && entity.isAlly !== this.isAlly && this.hitbox.collide(entity.hitbox)) {
-                // Collision detected with an enemy entity
-                attacking = true;
-                if (this.attackTimer >= this.attackCooldown) {
-                    this.attack(entity);
-                }
+                //do nothing
             }
         })
         this.state = attacking ? "attacking" : "walking";

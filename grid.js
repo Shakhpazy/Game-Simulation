@@ -11,7 +11,6 @@ class Grid {
         this.grid = new Array(ROWS).fill().map(() => Array(COLS).fill(null));
         this.gameEngine = gameEngine;
         this.activeRows = [2];
-        this.tower = new Tower(0, YSTART, this.gameEngine);
         this.initializeGrid();
         this.bgImage = new Image();
         //this.bgImage.src = "./Sprites/grass.jpg";
@@ -19,9 +18,10 @@ class Grid {
 
     initializeGrid() {
         for (let row = 0; row < ROWS; row++) {
-            this.grid[row][0] = this.tower;
+            let tower = new Tower(110, (YSTART+10) + (row*100), row, this.gameEngine);
+            this.grid[row][0] = tower;
+            this.gameEngine.addEntity(tower);
         }
-        this.gameEngine.addEntity(this.tower);
         console.log(this.grid)
     }
 
