@@ -51,13 +51,6 @@ class Tower extends Entity {
         //Had to hard code the coordinates of Ichigo
         //this.animator.drawFrame(this.gameEngine.clockTick, ctx, this.x, this.y - 10);
 
-        // Draw health bar
-        const healthPercent = this.health / this.maxHealth;
-        ctx.fillStyle = "red";
-        ctx.fillRect(this.x, this.y - 7, this.width, 5);
-        ctx.fillStyle = "green";
-        ctx.fillRect(this.x, this.y - 7, this.width * healthPercent, 5);
-
         // Placeholder sprite: small centered rectangle
         const size = 40;
         const px = this.x + (this.width - size) / 2;

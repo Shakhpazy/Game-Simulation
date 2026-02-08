@@ -15,6 +15,7 @@ class gameManager {
         this.gameEngine.allybuttons = new allyButtons(this.gameEngine);
 
         this.gameEngine.addEntity(this.gameEngine.waveManager);
+        this.gameEngine.addEntity(this.gameEngine.player);
     }
 
     // --- REUSABLE BUTTON HELPER ---
