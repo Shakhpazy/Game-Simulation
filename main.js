@@ -20,6 +20,10 @@ ASSET_MANAGER.queueDownload('./Sprites/gojoAttack.png');
 ASSET_MANAGER.queueDownload('./Sprites/gojoStart.png');
 ASSET_MANAGER.queueDownload('./Sprites/gojoEnd.png');
 ASSET_MANAGER.queueDownload('./Sprites/empty.png');
+ASSET_MANAGER.queueDownload('./Sprites/goku.png');
+ASSET_MANAGER.queueDownload('./Sprites/naruto.png');
+ASSET_MANAGER.queueDownload('./Sprites/ichigo.png');
+ASSET_MANAGER.queueDownload('./Sprites/shovel.png');
 
 
 
