@@ -3,6 +3,9 @@ class Player {
     constructor(gameEngine) {
         this.gameEngine = gameEngine;
         this.points = 3;
+        if(gameManager.debugMode) {
+            this.points = 30000;
+        }
         this.passiveRate = 0.5; // points per second
         this.killPoints = 2; // points per kill
         this.passiveTime = 0;

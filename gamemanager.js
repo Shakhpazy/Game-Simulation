@@ -1,10 +1,11 @@
 class gameManager {
-    
+    static debugMode = false;
     constructor(gameEngine) {
         this.playing = false;
         this.gameEngine = gameEngine;
         this.gamemode = "infinite"; 
         this.difficulty = "default"; 
+        
     }
 
     startGame() {
@@ -97,6 +98,16 @@ class gameManager {
             this.drawButton(ctx, 500, 20, 220, 64, diffLabel, diffColors, () => {
                 this.difficulty = (this.difficulty == "default") ? "hard" : "default";
             });
+
+
+            // DEBUG MODE (Purple)
+            this.drawButton(ctx, 750, 20, 220, 64, "DEBUG MODE: " + (gameManager.debugMode ? "ON" : "OFF"), 
+                { idle: '#df75ff', hover: '#871dc5', border: '#27ae60', borderHover: '#460b61' }, 
+                () => {
+                    gameManager.debugMode = !gameManager.debugMode;
+                    console.log("Debug Mode:", gameManager.debugMode);
+                }
+            );
         }
     }
 
