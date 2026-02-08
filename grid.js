@@ -3,7 +3,7 @@ const ROWS = 5; // number of rows in the grid
 const WIDTH = 100; // width of each cell
 const HEIGHT = 100; // height of each cell
 const YSTART = 250;
-const XSTART = 100; 
+const XSTART = 100;
 
 class Grid {
 
@@ -16,9 +16,13 @@ class Grid {
         //this.bgImage.src = "./Sprites/grass.jpg";
     }
 
+    isValidPlacement(row, col) {
+        return this.grid[row][col] === null;
+    }
+
     initializeGrid() {
         for (let row = 0; row < ROWS; row++) {
-            let tower = new Tower(110, (YSTART+10) + (row*100), row, this.gameEngine);
+            let tower = new Tower(110, (YSTART + 10) + (row * 100), row, this.gameEngine);
             this.grid[row][0] = tower;
             this.gameEngine.addEntity(tower);
         }
@@ -28,16 +32,16 @@ class Grid {
     pixelToCell(x, y) {
         const row = Math.trunc((y - YSTART) / HEIGHT);
         const col = Math.trunc((x - XSTART) / WIDTH);
-    
+
         if (y < YSTART || x < XSTART || row < 0 || row >= ROWS || col < 0 || col >= COLS) return null;
         return [row, col];
     }
-    
+
     getCellHover() {
         if (!this.gameEngine.mouse) return null;
         return this.pixelToCell(this.gameEngine.mouse.x, this.gameEngine.mouse.y);
     }
-    
+
     getCellClicked() {
         if (!this.gameEngine.click) return null;
         return this.pixelToCell(this.gameEngine.click.x, this.gameEngine.click.y);
@@ -47,18 +51,18 @@ class Grid {
         const mouseOver = this.getCellHover()
         const mouseClicked = this.getCellClicked()
         ctx.clearRect(XSTART, YSTART, COLS * WIDTH, ROWS * HEIGHT);
-        
+
         ctx.strokeStyle = "black";
         ctx.lineWidth = 1;
-        
-        // Draw horizontal lines
+
+        /*/ Draw horizontal lines
         for (let row = 0; row <= ROWS; row++) {
             ctx.beginPath();
             ctx.moveTo(XSTART, YSTART + row * HEIGHT);
             ctx.lineTo(XSTART + COLS * WIDTH, YSTART + row * HEIGHT);
             ctx.stroke();
         }
-        
+
         // Draw vertical lines
         for (let col = 0; col <= COLS; col++) {
             ctx.beginPath();
@@ -66,9 +70,10 @@ class Grid {
             ctx.lineTo(XSTART + col * WIDTH, YSTART + ROWS * HEIGHT);
             ctx.stroke();
         }
-        
-        // ctx.drawImage(this.bgImage, 0, YSTART, COLS * WIDTH, ROWS * HEIGHT);
-        
+        //*/
+
+
+
         if (mouseClicked) {
             const [row, col] = mouseClicked;
             if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
@@ -78,7 +83,22 @@ class Grid {
             this.gameEngine.click = null
         }
 
-        if (mouseOver) {
+        this.selectedType = this.gameEngine.towerManager.selectedTowerType;
+
+        if (this.selectedType && this.selectedType !== 'Shovel') {
+            for (let row = 0; row < ROWS; row++) {
+                for (let col = 0; col < COLS; col++) {
+                    if (this.isValidPlacement(row, col)) {
+
+                        // Light green for all valid spots
+                        ctx.fillStyle = 'rgba(0, 255, 0, 0.2)';
+                        ctx.fillRect(XSTART + col * WIDTH, YSTART + row * HEIGHT, WIDTH, HEIGHT);
+                    }
+                }
+            }
+        }
+
+        if (mouseOver && this.selectedType) {
             const [row, col] = mouseOver;
             if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
                 ctx.save();
