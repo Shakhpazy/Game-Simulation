@@ -1,6 +1,6 @@
 class Zombie extends Entity {
 
-    constructor(row, gameEngine) {
+    constructor(row, gameEngine, zombieHealth) {
         const x = 1600; // Starting x position (right side)
         const y = row * 100 + 260; // Calculate y
         super(x, y, 80, 80);
@@ -9,8 +9,8 @@ class Zombie extends Entity {
         this.row = row
 
         // Combat stats
-        this.maxHealth = 120;
-        this.health = 120;
+        this.maxHealth = zombieHealth;
+        this.health = this.maxHealth;
         this.attackTimer = 0;
         this.attackCooldown = 1; //1.0 second
         this.damage = 20;

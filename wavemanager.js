@@ -29,7 +29,7 @@ class WaveManager {
         for (let i = 0; i < this.zombiesPerRound; i++) {
             setTimeout(() => {
                 const spawnRow = this.activeRows[Math.floor(Math.random() * this.activeRows.length)]
-                const zombie = new Zombie(spawnRow, this.gameEngine);
+                const zombie = new Zombie(spawnRow, this.gameEngine, 90 + (this.currentround) * 30);
                 zombie.initialize((z) => this.activeZombies.delete(z));
                 this.activeZombies.add(zombie);
                 this.gameEngine.addEntity(zombie);
