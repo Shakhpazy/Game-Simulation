@@ -1,14 +1,8 @@
 class Zombie extends Entity {
 
-<<<<<<< HEAD
     constructor(row, gameEngine, zombieHealth) {
-        const x = 800; // Starting x position (right side)
-        const y = row * 100 + 12; // Calculate y from row
-=======
-    constructor(row, gameEngine) {
         const x = 1600; // Starting x position (right side)
         const y = row * 100 + 260; // Calculate y
->>>>>>> c6a867fd2b2c522fdbc329062ecf1f311f2b30a4
         super(x, y, 80, 80);
         this.gameEngine = gameEngine
 
@@ -69,12 +63,8 @@ class Zombie extends Entity {
 
         let attacking = false;
         this.gameEngine.entities.forEach(entity => {
-<<<<<<< HEAD
-            if ((entity instanceof Ally1 || entity instanceof Ally2 || entity instanceof Ally3) && entity.isAlly !== this.isAlly && this.hitbox.collide(entity.hitbox)) {
-=======
             if ((entity instanceof Ally1 || entity instanceof Ally2 || entity instanceof Ally3) 
                 && entity.isAlly !== this.isAlly && this.hitbox.collide(entity.hitbox)) {
->>>>>>> c6a867fd2b2c522fdbc329062ecf1f311f2b30a4
                 // Collision detected with an enemy entity
                 attacking = true;
                 if (this.attackTimer >= this.attackCooldown) {

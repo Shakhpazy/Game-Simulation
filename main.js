@@ -14,6 +14,13 @@ ASSET_MANAGER.queueDownload('./Sprites/gokuIdle.png');
 ASSET_MANAGER.queueDownload('./Sprites/gokuBlast.png');
 ASSET_MANAGER.queueDownload('./Sprites/gokuAttack1.png');
 ASSET_MANAGER.queueDownload('./Sprites/gokuAttack2.png');
+ASSET_MANAGER.queueDownload('./Sprites/gojoIdle.png');
+ASSET_MANAGER.queueDownload('./Sprites/gojoBlast.png');
+ASSET_MANAGER.queueDownload('./Sprites/gojoAttack.png');
+ASSET_MANAGER.queueDownload('./Sprites/gojoStart.png');
+ASSET_MANAGER.queueDownload('./Sprites/gojoEnd.png');
+ASSET_MANAGER.queueDownload('./Sprites/empty.png');
+
 
 
 
