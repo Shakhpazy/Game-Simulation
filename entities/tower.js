@@ -107,7 +107,7 @@ class Tower extends Entity {
                 else if (this.hitbox.collide(entity.hitbox)) {
                     this.state = "attacking";
                     if (this.isAlive) {
-                        this.gameEngine.grid.grid[this.row][0] = null;
+                        //this.gameEngine.grid.grid[this.row][0] = null;
                         this.isAlive = false;
                     }
                     entity.health -= entity.health;
