@@ -8,14 +8,13 @@ class gameManager {
     }
 
     startGame() {
+        this.gameEngine.needreset = false;
         this.gameEngine.towerManager = new TowerManager(this.gameEngine);
         this.gameEngine.grid = new Grid(this.gameEngine);
         this.gameEngine.waveManager = new WaveManager(this.gameEngine, this.gamemode, this.difficulty);
-        this.gameEngine.player = new Player(this.gameEngine);
         this.gameEngine.allybuttons = new allyButtons(this.gameEngine);
 
         this.gameEngine.addEntity(this.gameEngine.waveManager);
-        this.gameEngine.addEntity(this.gameEngine.player);
     }
 
     // --- REUSABLE BUTTON HELPER ---
@@ -102,5 +101,13 @@ class gameManager {
 
     update() {
         // Update logic here if needed
+        if (this.gameEngine.player && this.gameEngine.player.health <= 0) {
+            this.gameEngine.player.highscore += 100;
+            this.gameEngine.player.health = this.gameEngine.player.maxhealth;
+            this.playing = false;
+            this.gameEngine.needreset = true;
+            console.log("is game playing: ", this.playing);
+        }
+    
     }
 }

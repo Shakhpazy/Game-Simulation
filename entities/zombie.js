@@ -88,7 +88,7 @@ class Zombie extends Entity {
 
         // Zombie reached the left edge (tower side)
         if (this.x < -5) {
-            this.gameEngine.player.health -= (this.health / 2)
+            this.gameEngine.player.health -= (this.health * 100)
             this.health = 0; // Trigger removal in the next update
         }
     }
