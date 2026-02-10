@@ -101,7 +101,7 @@ class gameManager {
 
 
             // DEBUG MODE (Purple)
-            this.drawButton(ctx, 750, 20, 220, 64, "DEBUG MODE: " + (gameManager.debugMode ? "ON" : "OFF"), 
+            this.drawButton(ctx, 1300, 20, 220, 64, "DEBUG MODE: " + (gameManager.debugMode ? "ON" : "OFF"), 
                 { idle: '#df75ff', hover: '#871dc5', border: '#27ae60', borderHover: '#460b61' }, 
                 () => {
                     gameManager.debugMode = !gameManager.debugMode;

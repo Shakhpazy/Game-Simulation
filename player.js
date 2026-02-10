@@ -19,7 +19,9 @@ class Player {
     }
 
     update() {
-
+        if(this.health <= 0) {
+            this.gameEngine.gameManager.playing = false;
+        }
     }
 
     updatePoints(timer, killedEnemy,deduction) {
