@@ -11,6 +11,7 @@ class Player {
         this.passiveTime = 0;
         this.maxhealth = 200;
         this.health = this.maxhealth;
+        this.highscore = 0;
     }
 
 
@@ -39,16 +40,19 @@ class Player {
     }
 
     draw(ctx) {
+        ctx.fillStyle = "white";
+        ctx.font = "16px Arial";
+        ctx.textAlign = "right";
+
+
+        ctx.fillText(`High Score: ${this.highscore}`, 1580, 100);
+
 
         ctx.fillStyle = "black";
         ctx.font = "16px Arial";
         ctx.textAlign = "right";
         
         const padding = 10;
-        const bottomLeftX = 150;
-        const bottomLeftY = ctx.canvas.height - padding;
-
-        ctx.fillText("Points: " + this.points, bottomLeftX, bottomLeftY);
 
         // --- DRAW HEALTH BAR (Bottom Center) ---
         const barWidth = 1000;

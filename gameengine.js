@@ -15,17 +15,21 @@ class GameEngine {
         this.wheel = null;
         this.keys = {};
 
+        //state
+        this.needreset = false;
+
         // game
         this.gamemanager = new gameManager(this);
+        this.player = new Player(this)
         this.towerManager;
         this.grid;
         this.waveManager;
-        this.player;
         this.allybuttons;
 
         // this.addEntity(this.waveManager);
         // this.addEntity(this.grid);
         this.addEntity(this.gamemanager);
+        this.addEntity(this.player);
         
        
         // Options and the Details
@@ -107,7 +111,19 @@ class GameEngine {
         }
     };
 
+    reset() {
+        this.entities = [this.gamemanager, this.player]
+        this.towerManager = null;
+        this.grid = null;
+        this.waveManager = null;
+        this.allybuttons = null;
+    }
+
     update() {
+        if (this.needreset) {
+            this.needreset = false;
+            this.reset();
+        }
         let entitiesCount = this.entities.length;
 
         for (let i = 0; i < entitiesCount; i++) {
