@@ -55,22 +55,24 @@ class Grid {
         ctx.strokeStyle = "black";
         ctx.lineWidth = 1;
 
-        /*/ Draw horizontal lines
-        for (let row = 0; row <= ROWS; row++) {
-            ctx.beginPath();
-            ctx.moveTo(XSTART, YSTART + row * HEIGHT);
-            ctx.lineTo(XSTART + COLS * WIDTH, YSTART + row * HEIGHT);
-            ctx.stroke();
+        // Draw horizontal lines
+        if (gameManager.debugMode) {
+            for (let row = 0; row <= ROWS; row++) {
+                ctx.beginPath();
+                ctx.moveTo(XSTART, YSTART + row * HEIGHT);
+                ctx.lineTo(XSTART + COLS * WIDTH, YSTART + row * HEIGHT);
+                ctx.stroke();
+            }
+
+            // Draw vertical lines
+            for (let col = 0; col <= COLS; col++) {
+                ctx.beginPath();
+                ctx.moveTo(XSTART + col * WIDTH, YSTART);
+                ctx.lineTo(XSTART + col * WIDTH, YSTART + ROWS * HEIGHT);
+                ctx.stroke();
+            }
         }
 
-        // Draw vertical lines
-        for (let col = 0; col <= COLS; col++) {
-            ctx.beginPath();
-            ctx.moveTo(XSTART + col * WIDTH, YSTART);
-            ctx.lineTo(XSTART + col * WIDTH, YSTART + ROWS * HEIGHT);
-            ctx.stroke();
-        }
-        //*/
 
 
 
