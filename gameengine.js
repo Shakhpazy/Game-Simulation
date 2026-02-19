@@ -25,6 +25,7 @@ class GameEngine {
         this.grid;
         this.waveManager;
         this.allybuttons;
+        this.currentRound = 1;
 
         // this.addEntity(this.waveManager);
         // this.addEntity(this.grid);
@@ -150,6 +151,7 @@ class GameEngine {
             this.player.updatePoints(this.clockTick, false, 0);
         }
 
+        this.currentRound = this.waveManager ? this.waveManager.currentround : 1;
     };
 
     loop() {
