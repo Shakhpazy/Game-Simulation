@@ -10,6 +10,9 @@ class gameManager {
 
     startGame() {
         this.gameEngine.needreset = false;
+
+        this.gameEngine.player.reset();
+
         this.gameEngine.towerManager = new TowerManager(this.gameEngine);
         this.gameEngine.grid = new Grid(this.gameEngine);
         this.gameEngine.waveManager = new WaveManager(this.gameEngine, this.gamemode, this.difficulty);
@@ -87,7 +90,7 @@ class gameManager {
                 }
             );
 
-            // IFFICULTY BUTTON (Dynamic Orange/Red)
+            // DIFFICULTY BUTTON (Dynamic Orange/Red)
             const isHard = this.difficulty === "hard";
             const diffLabel = "Diff: " + this.difficulty.charAt(0).toUpperCase() + this.difficulty.slice(1);
             const diffColors = isHard ? 
@@ -111,9 +114,14 @@ class gameManager {
     }
 
     update() {
-        // Update logic here if needed
+        const player = this.gameEngine.player;
+
+        if (this.playing && player.health <= 0) {
+            player.highscore = Math.max(player.highscore, player.currentScore);
+        }
+
+        //Update logic here if needed
         if (this.gameEngine.player && this.gameEngine.player.health <= 0) {
-            this.gameEngine.player.highscore += 100;
             this.gameEngine.player.health = this.gameEngine.player.maxhealth;
             this.playing = false;
             this.gameEngine.needreset = true;
