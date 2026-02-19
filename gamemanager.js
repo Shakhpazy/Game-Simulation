@@ -3,8 +3,8 @@ class gameManager {
     constructor(gameEngine) {
         this.playing = false;
         this.gameEngine = gameEngine;
-        this.gamemode = "infinite"; 
-        this.difficulty = "default"; 
+        this.gamemode = "infinite";
+        this.difficulty = "default";
         this.showGameOver = false;
         this.finalScore = 0;
     }
@@ -43,7 +43,7 @@ class gameManager {
         ctx.shadowBlur = 8;
         ctx.shadowOffsetY = 4;
         ctx.fillStyle = isHovering ? colorConfig.hover : colorConfig.idle;
-        
+
         // Draw Shape
         ctx.beginPath();
         ctx.roundRect(x, y, width, height, radius); // Modern browser shorthand
@@ -65,7 +65,7 @@ class gameManager {
 
         if (isClicked) {
             onClick();
-            this.gameEngine.click = null; 
+            this.gameEngine.click = null;
         }
     }
 
@@ -89,10 +89,12 @@ class gameManager {
             ctx.fillStyle = "#ffffff";
             ctx.font = "bold 42px Arial";
             ctx.textAlign = "center";
-            ctx.fillText("You Lost", 800, 360);
+
+            ctx.fillText("Game Over!", 800, 360);
+
 
             ctx.font = "26px Arial";
-            ctx.fillText(`Score: ${this.finalScore}`, 800, 420);
+            ctx.fillText(`Your Final Score: ${this.finalScore}`, 800, 420);
 
             this.drawButton(
                 ctx,
@@ -113,8 +115,8 @@ class gameManager {
             if (this.gameEngine?.canvas) this.gameEngine.canvas.style.cursor = 'default';
 
             // START BUTTON (Green)
-            this.drawButton(ctx, 20, 20, 220, 64, "Start Game", 
-                { idle: '#2ecc71', hover: '#29c36a', border: '#27ae60', borderHover: '#1e8449' }, 
+            this.drawButton(ctx, 20, 20, 220, 64, "Start Game",
+                { idle: '#2ecc71', hover: '#29c36a', border: '#27ae60', borderHover: '#1e8449' },
                 () => {
                     this.playing = true;
                     this.startGame();
@@ -123,8 +125,8 @@ class gameManager {
 
             // GAMEMODE BUTTON (Blue)
             const modeLabel = "Mode: " + this.gamemode.charAt(0).toUpperCase() + this.gamemode.slice(1);
-            this.drawButton(ctx, 260, 20, 220, 64, modeLabel, 
-                { idle: '#2980b9', hover: '#3498db', border: '#1c5980', borderHover: '#2980b9' }, 
+            this.drawButton(ctx, 260, 20, 220, 64, modeLabel,
+                { idle: '#2980b9', hover: '#3498db', border: '#1c5980', borderHover: '#2980b9' },
                 () => {
                     this.gamemode = (this.gamemode == "infinite") ? "rounds" : "infinite";
                 }
@@ -133,8 +135,8 @@ class gameManager {
             // DIFFICULTY BUTTON (Dynamic Orange/Red)
             const isHard = this.difficulty === "hard";
             const diffLabel = "Diff: " + this.difficulty.charAt(0).toUpperCase() + this.difficulty.slice(1);
-            const diffColors = isHard ? 
-                { idle: '#c0392b', hover: '#e74c3c', border: '#962d22', borderHover: '#c0392b' } : 
+            const diffColors = isHard ?
+                { idle: '#c0392b', hover: '#e74c3c', border: '#962d22', borderHover: '#c0392b' } :
                 { idle: '#f39c12', hover: '#ffaf40', border: '#e67e22', borderHover: '#f39c12' };
 
             this.drawButton(ctx, 500, 20, 220, 64, diffLabel, diffColors, () => {
@@ -143,8 +145,8 @@ class gameManager {
 
 
             // DEBUG MODE (Purple)
-            this.drawButton(ctx, 1300, 20, 220, 64, "DEBUG MODE: " + (gameManager.debugMode ? "ON" : "OFF"), 
-                { idle: '#df75ff', hover: '#871dc5', border: '#c427a2', borderHover: '#460b61' }, 
+            this.drawButton(ctx, 1300, 20, 220, 64, "DEBUG MODE: " + (gameManager.debugMode ? "ON" : "OFF"),
+                { idle: '#df75ff', hover: '#871dc5', border: '#c427a2', borderHover: '#460b61' },
                 () => {
                     gameManager.debugMode = !gameManager.debugMode;
                     console.log("Debug Mode:", gameManager.debugMode);
@@ -152,14 +154,27 @@ class gameManager {
             );
         } else {
             // END GAME (Red)
-            this.drawButton(ctx, 1100, 20, 220, 64, "END GAME: " , 
-                { idle: '#ff0000', hover: '#7e0000', border: '#ff0000', borderHover: '#ff4d4d' }, 
+            this.drawButton(ctx, 1100, 20, 220, 64, "END GAME: ",
+                { idle: '#ff0000', hover: '#7e0000', border: '#ff0000', borderHover: '#ff4d4d' },
                 () => {
                     this.gameEngine.player.health = 0;
                     this.gameEngine.reset();
-                    console.log(this.gameEngine.entities)
                 }
             );
+
+            if (gameManager.debugMode) {
+                // SKIP WAVE GAME (Red)
+                this.drawButton(ctx, 800, 20, 220, 64, "SKIP WAVE",
+                    { idle: '#ff0000', hover: '#7e0000', border: '#ff0000', borderHover: '#ff4d4d' },
+                    () => {
+                        this.gameEngine.waveManager.currentround += 1;
+                        this.gameEngine.waveManager.spawnZombies();
+                    }
+                );
+            }
+
+
+
         }
     }
 
@@ -177,9 +192,6 @@ class gameManager {
             this.gameEngine.needreset = true;
             console.log("is game playing: ", this.playing);
         }
-        
-        if(!this.playing) {
-            
-        }
+
     }
 }

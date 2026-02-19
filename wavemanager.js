@@ -1,16 +1,19 @@
 class WaveManager {
 
-    constructor(gameEngine, gamemode) {
+    constructor(gameEngine, gamemode, difficulty) {
         this.gameEngine = gameEngine
 
         this.debug = true;
         this.currentround = 1; // Changed from 0
-        this.minZombiesPerRound = 3;
+        this.gamemode = gamemode;
+        this.difficulty = difficulty;
+        this.minZombiesPerRound = this.difficulty === "default" ? 3 : 5; // Adjust based on difficulty
         this.zombiesPerRound = Math.ceil(this.currentround * this.minZombiesPerRound);
         this.activeRows = [2];
         this.activeZombies = new Set();
         this.roundStarted = false;
-
+        this.zombiesLeft = this.zombiesPerRound;
+        this.baseHealth = this.difficulty === "default" ? 90 : 150; // Adjust based on difficulty
         // track spawn timers so we can cancel them when the game ends
         this.spawnTimers = [];
         this.stopped = false;
@@ -18,7 +21,7 @@ class WaveManager {
         this.openedrows1 = false;
         this.openedrows2 = false;
 
-        this.gamemode = gamemode;
+        
 
         //to start the round
         this.spawnZombies();
@@ -33,12 +36,12 @@ class WaveManager {
         // reset spawn timers and stopped flag for a fresh round
         this.spawnTimers = [];
         this.stopped = false;
-
+        this.gameEngine.player.addPoints(5 * this.currentround); // Bonus points for surviving the round
         for (let i = 0; i < this.zombiesPerRound; i++) {
             const t = setTimeout(() => {
                 if (this.stopped) return; // don't spawn after we've been stopped
                 const spawnRow = this.activeRows[Math.floor(Math.random() * this.activeRows.length)]
-                const zombie = new Zombie(spawnRow, this.gameEngine, 90 + (this.currentround) * 30);
+                const zombie = new Zombie(spawnRow, this.gameEngine, this.baseHealth + (this.currentround) * 30);
                 zombie.initialize((z) => this.activeZombies.delete(z));
                 this.activeZombies.add(zombie);
                 this.gameEngine.addEntity(zombie);
@@ -60,6 +63,7 @@ class WaveManager {
         
         if (this.activeZombies.size === 0 && this.roundStarted) {
             this.currentround += 1;
+            
             this.zombiesPerRound = Math.ceil(this.currentround * this.minZombiesPerRound);
             this.roundStarted = false;
             this.spawnZombies();
@@ -73,6 +77,10 @@ class WaveManager {
             this.activeRows.push(0,4);
             this.gameEngine.grid.activeRows = this.activeRows
             this.openedrows2 = true;
+        }
+        if(this.currentround === 10) {
+            this.gameEngine.player.health = 0;
+            
         }
     }
 

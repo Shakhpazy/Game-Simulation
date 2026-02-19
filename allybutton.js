@@ -65,7 +65,6 @@ class AllyButton {
             ctx.textAlign = 'center';
             ctx.fillText(`$${this.price}`, this.x + this.width / 2, this.y + this.height - 10);
         }
-        console.log(this.gameEngine.waveManager, this.round);
         if (this.selected) {
             ctx.strokeStyle = 'yellow';
             ctx.lineWidth = 3;
