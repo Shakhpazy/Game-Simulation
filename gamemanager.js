@@ -5,7 +5,8 @@ class gameManager {
         this.gameEngine = gameEngine;
         this.gamemode = "infinite"; 
         this.difficulty = "default"; 
-        
+        this.showGameOver = false;
+        this.finalScore = 0;
     }
 
     startGame() {
@@ -69,6 +70,44 @@ class gameManager {
     }
 
     draw(ctx) {
+
+        //Game over pop-up
+        if (this.showGameOver) {
+            // Dark overlay
+            ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
+            ctx.fillRect(0, 0, 1600, 900);
+
+            // Popup box
+            ctx.fillStyle = "#1f2a38";
+            ctx.fillRect(500, 300, 600, 280);
+
+            ctx.strokeStyle = "#ecf0f1";
+            ctx.lineWidth = 4;
+            ctx.strokeRect(500, 300, 600, 280);
+
+            // Text
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "bold 42px Arial";
+            ctx.textAlign = "center";
+            ctx.fillText("You Lost", 800, 360);
+
+            ctx.font = "26px Arial";
+            ctx.fillText(`Score: ${this.finalScore}`, 800, 420);
+
+            this.drawButton(
+                ctx,
+                650, 480,
+                300, 64,
+                "Continue",
+                { idle: "#3498db", hover: "#5dade2", border: "#2980b9", borderHover: "#3498db" },
+                () => {
+                    this.showGameOver = false;
+                }
+            );
+
+            return; //stop menu buttons from drawing
+        }
+
         if (!this.playing) {
             // Reset cursor to default at the start of the frame
             if (this.gameEngine?.canvas) this.gameEngine.canvas.style.cursor = 'default';
@@ -125,10 +164,10 @@ class gameManager {
     }
 
     update() {
-        const player = this.gameEngine.player;
-
-        if (this.playing && player.health <= 0) {
-            player.highscore = Math.max(player.highscore, player.currentScore);
+        if (this.playing && this.gameEngine.player.health <= 0) {
+            this.gameEngine.player.highscore = Math.max(this.gameEngine.player.highscore, this.gameEngine.player.currentScore);
+            this.finalScore = this.gameEngine.player.currentScore;
+            this.showGameOver = true;
         }
 
         //Update logic here if needed
