@@ -12,8 +12,15 @@ class Player {
         this.maxhealth = 200;
         this.health = this.maxhealth;
         this.highscore = 0;
+        this.currentScore = 0;
     }
 
+    reset() {
+        this.points = gameManager.debugMode ? 30000 : 3;
+        this.currentScore = 0;
+        this.health = this.maxhealth;
+        this.passiveTime = 0;
+    }
 
     getPoints() {
         return this.points;
@@ -30,9 +37,13 @@ class Player {
         if (this.passiveTime >= 1) {
             this.points += this.passiveRate;
             this.passiveTime = 0;
+            this.currentScore += 1;
         }
+        
+        //Change points earned for stronger enemies
         if (killedEnemy) {
             this.points += this.killPoints;
+            this.currentScore += 10;
         }
         if(deduction > 0) {
             this.points -= deduction;
