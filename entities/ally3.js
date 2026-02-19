@@ -7,9 +7,9 @@ class Ally3 extends Entity {
         this.col = col;
 
         // Combat stats
-        this.maxHealth = 100;
-        this.health = 100;
-        this.cost = 10;
+        this.maxHealth = 150;
+        this.health = 150;
+        this.cost = 15;
         this.attackTimer = 0;
         this.attackCooldown = 1; //1.0 second
         this.damage = 50;

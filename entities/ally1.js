@@ -8,12 +8,12 @@ class Ally1 extends Entity {
 
 
         // Combat stats
-        this.maxHealth = 100;
-        this.health = 100;
-        this.cost = 15;
+        this.maxHealth = 250;
+        this.health = 250;
+        this.cost = 30;
         this.attackTimer = 0;
         this.attackCooldown = 0.5; //1.0 second
-        this.damage = 30;
+        this.damage = 45;
 
         // State
         this.state = "idle";
