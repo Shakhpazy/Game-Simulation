@@ -50,6 +50,11 @@ class Player {
         }
     }
 
+    addPoints(amount) {
+        this.points += amount;
+        this.currentScore += amount;
+    }
+
     draw(ctx) {
         ctx.fillStyle = "white";
         ctx.font = "16px Arial";

@@ -12,16 +12,16 @@ class allyButtons {
         	button.gameEngine.selectedButton = button;
         	button.gameEngine.click = null;
         	console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
-        }, this.shovelBgImage);
+        }, this.shovelBgImage, 0);
 
-        this.allyone = new AllyButton(gameEngine, "Goku", 15, 300, 0, (button) => {
+        this.allyone = new AllyButton(gameEngine, "Goku", 30, 300, 0, (button) => {
         	console.log("ally 1 button clicked");
         	gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Goku'; 
         	button.gameEngine.selectedButton = button;
         	button.gameEngine.click = null;
         	console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
         	// Money check happens later when placing on grid, not here
-        }, this.allyoneBgImage);
+        }, this.allyoneBgImage, 10);
         this.allytwo = new AllyButton(gameEngine, "Ichigo", 5, 60, 0,(button) => {
         	console.log("ally 2 button clicked");
         	gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Ichigo'; 
@@ -29,16 +29,16 @@ class allyButtons {
         	button.gameEngine.click = null;
         	console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
         	// Money check happens later when placing on grid, not here
-        }, this.allytwoBgImage);
+        }, this.allytwoBgImage, 1);
         
-        this.allythree = new AllyButton(gameEngine, "Naruto", 10, 180, 0, (button) => {
+        this.allythree = new AllyButton(gameEngine, "Naruto", 15, 180, 0, (button) => {
         	console.log("ally 3 button clicked");
         	gameEngine.towerManager.selectedTowerType = button.selected ? null : 'Naruto'; 
         	button.gameEngine.selectedButton = button;
         	button.gameEngine.click = null;
         	console.log("Selected Tower Type:", gameEngine.towerManager.selectedTowerType);
         	// Money check happens later when placing on grid, not here
-        }, this.allythreeBgImage);
+        }, this.allythreeBgImage, 5);
 		
 
         gameEngine.addEntity(this.allyone);
