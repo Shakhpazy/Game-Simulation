@@ -104,10 +104,19 @@ class gameManager {
 
             // DEBUG MODE (Purple)
             this.drawButton(ctx, 1300, 20, 220, 64, "DEBUG MODE: " + (gameManager.debugMode ? "ON" : "OFF"), 
-                { idle: '#df75ff', hover: '#871dc5', border: '#27ae60', borderHover: '#460b61' }, 
+                { idle: '#df75ff', hover: '#871dc5', border: '#c427a2', borderHover: '#460b61' }, 
                 () => {
                     gameManager.debugMode = !gameManager.debugMode;
                     console.log("Debug Mode:", gameManager.debugMode);
+                }
+            );
+        } else {
+            // END GAME (Red)
+            this.drawButton(ctx, 1100, 20, 220, 64, "END GAME: " , 
+                { idle: '#ff0000', hover: '#7e0000', border: '#ff0000', borderHover: '#ff4d4d' }, 
+                () => {
+                    this.playing = false;
+                    this.gameEngine.player.health = 0;
                 }
             );
         }
