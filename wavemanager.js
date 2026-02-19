@@ -78,7 +78,7 @@ class WaveManager {
             this.gameEngine.grid.activeRows = this.activeRows
             this.openedrows2 = true;
         }
-        if(this.currentround === 10) {
+        if(this.currentround === 10 && this.gamemode !== "infinite") {
             this.gameEngine.player.health = 0;
             
         }

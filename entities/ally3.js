@@ -81,7 +81,7 @@ class Ally3 extends Entity {
 
     attack() {
         this.attackTimer = 0;
-        const proj = new Projectile(this.x + 30, this.y, this.damage, 200, this.isAlly, this.gameEngine, new Animator(ASSET_MANAGER.getAsset('./Sprites/Shuriken.png'), 0, 0, 67, 47, 4, 0.08, true));
+        const proj = new Projectile(this.x + 30, this.y, this.damage, 200, this.isAlly, this.gameEngine, new Animator(ASSET_MANAGER.getAsset('./Sprites/Shuriken.png'), 0, 0, 67, 47, 4, 0.12, true));
         this.gameEngine.addEntity(proj)
         //make it shoot a penut
     }
