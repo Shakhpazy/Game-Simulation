@@ -19,6 +19,7 @@ class gameManager {
         this.gameEngine.allybuttons = new allyButtons(this.gameEngine);
 
         this.gameEngine.addEntity(this.gameEngine.waveManager);
+        console.log(this.gameEngine.entities);
     }
 
     // --- REUSABLE BUTTON HELPER ---
@@ -115,8 +116,9 @@ class gameManager {
             this.drawButton(ctx, 1100, 20, 220, 64, "END GAME: " , 
                 { idle: '#ff0000', hover: '#7e0000', border: '#ff0000', borderHover: '#ff4d4d' }, 
                 () => {
-                    this.playing = false;
                     this.gameEngine.player.health = 0;
+                    this.gameEngine.reset();
+                    console.log(this.gameEngine.entities)
                 }
             );
         }
@@ -136,6 +138,9 @@ class gameManager {
             this.gameEngine.needreset = true;
             console.log("is game playing: ", this.playing);
         }
-    
+        
+        if(!this.playing) {
+            
+        }
     }
 }

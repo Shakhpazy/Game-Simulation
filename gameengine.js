@@ -97,6 +97,7 @@ class GameEngine {
         this.entities.push(entity);
     };
 
+
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
@@ -105,13 +106,18 @@ class GameEngine {
             this.grid.draw(this.ctx);
         }
 
+        
         // Draw latest things first
         for (let i = this.entities.length - 1; i >= 0; i--) {
             this.entities[i].draw(this.ctx, this);
         }
+        
     };
 
     reset() {
+        if (this.waveManager) {
+            this.waveManager.clearSpawns();
+        }
         this.entities = [this.gamemanager, this.player]
         this.towerManager = null;
         this.grid = null;

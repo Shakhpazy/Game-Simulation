@@ -11,6 +11,10 @@ class WaveManager {
         this.activeZombies = new Set();
         this.roundStarted = false;
 
+        // track spawn timers so we can cancel them when the game ends
+        this.spawnTimers = [];
+        this.stopped = false;
+
         this.openedrows1 = false;
         this.openedrows2 = false;
 
@@ -26,19 +30,34 @@ class WaveManager {
      * or we can leave it idk)
      */
     spawnZombies() {
+        // reset spawn timers and stopped flag for a fresh round
+        this.spawnTimers = [];
+        this.stopped = false;
+
         for (let i = 0; i < this.zombiesPerRound; i++) {
-            setTimeout(() => {
+            const t = setTimeout(() => {
+                if (this.stopped) return; // don't spawn after we've been stopped
                 const spawnRow = this.activeRows[Math.floor(Math.random() * this.activeRows.length)]
                 const zombie = new Zombie(spawnRow, this.gameEngine, 90 + (this.currentround) * 30);
                 zombie.initialize((z) => this.activeZombies.delete(z));
                 this.activeZombies.add(zombie);
                 this.gameEngine.addEntity(zombie);
             }, i * 3000);
+            this.spawnTimers.push(t);
         }
         this.roundStarted = true;
     }
 
+    clearSpawns() {
+        this.stopped = true;
+        if (this.spawnTimers && this.spawnTimers.length) {
+            this.spawnTimers.forEach(t => clearTimeout(t));
+            this.spawnTimers = [];
+        }
+    }
+
     update() {
+        
         if (this.activeZombies.size === 0 && this.roundStarted) {
             this.currentround += 1;
             this.zombiesPerRound = Math.ceil(this.currentround * this.minZombiesPerRound);
@@ -54,7 +73,6 @@ class WaveManager {
             this.activeRows.push(0,4);
             this.gameEngine.grid.activeRows = this.activeRows
             this.openedrows2 = true;
-
         }
     }
 
