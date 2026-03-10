@@ -33,7 +33,21 @@ ASSET_MANAGER.downloadAll(() => {
 	const ctx = canvas.getContext("2d");
 	gameEngine.init(ctx);
 
+	// Start background music on the first click anywhere on the canvas
+	const bgm = document.getElementById("bgm");
+	if (bgm) {
+		const startMusic = () => {
+			if (bgm.paused) {
+				bgm.volume = 0.4;
+				bgm.play().catch(() => {
+					// Ignore autoplay errors; user can interact again to start audio
+				});
+			}
+			canvas.removeEventListener("click", startMusic);
+		};
 
-	
+		canvas.addEventListener("click", startMusic);
+	}
+
 	gameEngine.start();
 });
