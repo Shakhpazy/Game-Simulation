@@ -153,6 +153,20 @@ class gameManager {
                 }
             );
         } else {
+            // Round transition banner from WaveManager
+            if (this.gameEngine.waveManager && this.gameEngine.waveManager.inRoundTransition) {
+                ctx.save();
+                ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+                ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+                ctx.fillStyle = "#rgba(88, 2, 2, 0.5)"; // Red text
+                ctx.font = "bold 56px 'impact', sans-serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(`Round ${this.gameEngine.waveManager.currentround}`, ctx.canvas.width / 2, ctx.canvas.height / 2);
+                ctx.restore();
+            }
+
             // END GAME (Red)
             this.drawButton(ctx, 1100, 20, 220, 64, "END GAME: ",
                 { idle: '#ff0000', hover: '#7e0000', border: '#ff0000', borderHover: '#ff4d4d' },

@@ -7,13 +7,13 @@ class Ally2 extends Entity {
         this.col = col;
 
 
-        // Combat stats
-        this.maxHealth = 100;
-        this.health = 100;
-        this.cost = 5;
+        // Combat stats (cheap lane holder)
+        this.maxHealth = 160;
+        this.health = 160;
+        this.cost = 6;
         this.attackTimer = 0;
-        this.attackCooldown = 1.5; //1.0 second
-        this.damage = 35;
+        this.attackCooldown = 1.6;
+        this.damage = 20;
 
         // State
         this.state = "idle";
@@ -82,7 +82,7 @@ class Ally2 extends Entity {
 
     attack() {
         this.attackTimer = 0;
-        const proj = new Projectile(this.x + 30, this.y+30, this.damage, 200, this.isAlly, this.gameEngine, new Animator(ASSET_MANAGER.getAsset('./Sprites/IchigoSlash.png'), 0, 0, 53, 37, 1, 0.1, true));
+        const proj = new Projectile(this.x + 30, this.y+30, this.damage, 220, this.isAlly, this.gameEngine, new Animator(ASSET_MANAGER.getAsset('./Sprites/IchigoSlash.png'), 0, 0, 53, 37, 1, 0.1, true));
         this.gameEngine.addEntity(proj)
         //make it shoot 
     }

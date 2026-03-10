@@ -2,12 +2,12 @@ class Player {
 
     constructor(gameEngine) {
         this.gameEngine = gameEngine;
-        this.points = 3;
+        this.points = 6;
         if(gameManager.debugMode) {
             this.points = 30000;
         }
-        this.passiveRate = 0.5; // points per second
-        this.killPoints = 2; // points per kill
+        this.passiveRate = 0.25; // points per second
+        this.killPoints = 1; // points per kill
         this.passiveTime = 0;
         this.maxhealth = 200;
         this.health = this.maxhealth;
@@ -16,7 +16,7 @@ class Player {
     }
 
     reset() {
-        this.points = gameManager.debugMode ? 30000 : 3;
+        this.points = gameManager.debugMode ? 30000 : 6;
         this.currentScore = 0;
         this.health = this.maxhealth;
         this.passiveTime = 0;

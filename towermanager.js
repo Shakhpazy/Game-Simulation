@@ -21,7 +21,8 @@ class TowerManager {
                 existingTower.remove();
                 this.selectedTowerType = null;
                 this.gameEngine.selectedButton = null;
-                this.gameEngine.player.updatePoints(existingTower.cost/2, true, 0); // Refund points when selling tower
+                // Full refund of the tower's cost, without triggering kill rewards
+                this.gameEngine.player.addPoints(existingTower.cost/2);
                 return true;
             } else {
                 this.selectedTowerType = null;
