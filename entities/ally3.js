@@ -6,13 +6,13 @@ class Ally3 extends Entity {
         this.row = row;
         this.col = col;
 
-        // Combat stats
-        this.maxHealth = 100;
-        this.health = 100;
-        this.cost = 10;
+        // Combat stats (mid-game glass cannon)
+        this.maxHealth = 130;
+        this.health = 130;
+        this.cost = 8;
         this.attackTimer = 0;
-        this.attackCooldown = 1; //1.0 second
-        this.damage = 50;
+        this.attackCooldown = 0.9;
+        this.damage = 26;
 
         // State
         this.state = "idle";
@@ -81,7 +81,7 @@ class Ally3 extends Entity {
 
     attack() {
         this.attackTimer = 0;
-        const proj = new Projectile(this.x + 30, this.y, this.damage, 200, this.isAlly, this.gameEngine, new Animator(ASSET_MANAGER.getAsset('./Sprites/Shuriken.png'), 0, 0, 67, 47, 4, 0.08, true));
+        const proj = new Projectile(this.x + 30, this.y, this.damage, 260, this.isAlly, this.gameEngine, new Animator(ASSET_MANAGER.getAsset('./Sprites/Shuriken.png'), 0, 0, 67, 47, 4, 0.12, true));
         this.gameEngine.addEntity(proj)
         //make it shoot a penut
     }
