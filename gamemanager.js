@@ -6,6 +6,7 @@ class gameManager {
         this.gamemode = "infinite";
         this.difficulty = "default";
         this.showGameOver = false;
+        this.hasWon = false;
         this.finalScore = 0;
     }
 
@@ -90,8 +91,11 @@ class gameManager {
             ctx.font = "bold 42px Arial";
             ctx.textAlign = "center";
 
-            ctx.fillText("Game Over!", 800, 360);
-
+            if (this.hasWon) {
+                ctx.fillText("You Won!", 800, 360);
+            } else {
+                ctx.fillText("Game Over!", 800, 360);
+            }
 
             ctx.font = "26px Arial";
             ctx.fillText(`Your Final Score: ${this.finalScore}`, 800, 420);
@@ -104,6 +108,7 @@ class gameManager {
                 { idle: "#3498db", hover: "#5dade2", border: "#2980b9", borderHover: "#3498db" },
                 () => {
                     this.showGameOver = false;
+                    this.hasWon = false;
                 }
             );
 
