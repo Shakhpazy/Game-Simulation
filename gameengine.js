@@ -15,6 +15,24 @@ class GameEngine {
         this.wheel = null;
         this.keys = {};
 
+        //state
+        this.needreset = false;
+
+        // game
+        this.gamemanager = new gameManager(this);
+        this.player = new Player(this)
+        this.towerManager;
+        this.grid;
+        this.waveManager;
+        this.allybuttons;
+        this.currentRound = 1;
+
+        // this.addEntity(this.waveManager);
+        // this.addEntity(this.grid);
+        this.addEntity(this.gamemanager);
+        this.addEntity(this.player);
+        
+       
         // Options and the Details
         this.options = options || {
             debugging: false,
@@ -80,19 +98,39 @@ class GameEngine {
         this.entities.push(entity);
     };
 
+
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
-        // Draw the grid
-        grid.draw(this.ctx);
+        if (this.grid) {
+            this.grid.draw(this.ctx);
+        }
+
+        
         // Draw latest things first
         for (let i = this.entities.length - 1; i >= 0; i--) {
             this.entities[i].draw(this.ctx, this);
         }
+        
     };
 
+    reset() {
+        if (this.waveManager) {
+            this.waveManager.clearSpawns();
+        }
+        this.entities = [this.gamemanager, this.player]
+        this.towerManager = null;
+        this.grid = null;
+        this.waveManager = null;
+        this.allybuttons = null;
+    }
+
     update() {
+        if (this.needreset) {
+            this.needreset = false;
+            this.reset();
+        }
         let entitiesCount = this.entities.length;
 
         for (let i = 0; i < entitiesCount; i++) {
@@ -108,6 +146,12 @@ class GameEngine {
                 this.entities.splice(i, 1);
             }
         }
+        //this can be moved internally to the actual player
+        if (this.player) {
+            this.player.updatePoints(this.clockTick, false, 0);
+        }
+
+        this.currentRound = this.waveManager ? this.waveManager.currentround : 1;
     };
 
     loop() {

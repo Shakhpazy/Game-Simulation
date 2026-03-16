@@ -2,18 +2,52 @@ const gameEngine = new GameEngine();
 
 const ASSET_MANAGER = new AssetManager();
 
-const grid = new Grid();
+ASSET_MANAGER.queueDownload('./Sprites/ZombieWalking.png');
+ASSET_MANAGER.queueDownload('./Sprites/ZombieEatHealthy.png');
+ASSET_MANAGER.queueDownload('./Sprites/Shuriken.png');
+ASSET_MANAGER.queueDownload('./Sprites/IchigoIdle.png');
+ASSET_MANAGER.queueDownload('./Sprites/IchigoAttack.jpg');
+ASSET_MANAGER.queueDownload('./Sprites/IchigoSlash.png');
+ASSET_MANAGER.queueDownload('./Sprites/NarutoAttack.png');
+ASSET_MANAGER.queueDownload('./Sprites/NarutoIdle.png');
+ASSET_MANAGER.queueDownload('./Sprites/gokuIdle.png');
+ASSET_MANAGER.queueDownload('./Sprites/gokuBlast.png');
+ASSET_MANAGER.queueDownload('./Sprites/gokuAttack1.png');
+ASSET_MANAGER.queueDownload('./Sprites/gokuAttack2.png');
+ASSET_MANAGER.queueDownload('./Sprites/gojoIdle.png');
+ASSET_MANAGER.queueDownload('./Sprites/gojoBlast.png');
+ASSET_MANAGER.queueDownload('./Sprites/gojoAttack.png');
+ASSET_MANAGER.queueDownload('./Sprites/gojoStart.png');
+ASSET_MANAGER.queueDownload('./Sprites/gojoEnd.png');
+ASSET_MANAGER.queueDownload('./Sprites/empty.png');
+ASSET_MANAGER.queueDownload('./Sprites/goku.png');
+ASSET_MANAGER.queueDownload('./Sprites/naruto.png');
+ASSET_MANAGER.queueDownload('./Sprites/ichigo.png');
+ASSET_MANAGER.queueDownload('./Sprites/shovel.png');
+
+
+
 
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");
-
-	const t = new Tungtungsahur(10, 10, 0, 0)
-	const z = new Zombie(900, 12, 0)
 	gameEngine.init(ctx);
 
-	gameEngine.addEntity(t)
-	gameEngine.addEntity(z)
+	// Start background music on the first click anywhere on the canvas
+	const bgm = document.getElementById("bgm");
+	if (bgm) {
+		const startMusic = () => {
+			if (bgm.paused) {
+				bgm.volume = 0.4;
+				bgm.play().catch(() => {
+					// Ignore autoplay errors; user can interact again to start audio
+				});
+			}
+			canvas.removeEventListener("click", startMusic);
+		};
+
+		canvas.addEventListener("click", startMusic);
+	}
 
 	gameEngine.start();
 });
