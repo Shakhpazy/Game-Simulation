@@ -103,7 +103,7 @@ class WaveManager {
         }
         if(this.currentround === 10 && this.gamemode !== "infinite") {
             this.gameEngine.player.health = 0;
-            
+            this.gameEngine.gamemanager.hasWon = true;
         }
     }
 
